@@ -19,7 +19,8 @@
         Electron.js
       </div>
     </div>
-  <v-btn>dsadsadsadas</v-btn>
+  <v-btn>dsadssadsadas</v-btn>
+<audio id="player" controls></audio>
   </div>
 </template>
 
@@ -39,7 +40,24 @@ export default {
   methods: {
     openURL (url) {
       remote.shell.openExternal(url)
+    },
+    startAudio(){
     }
+  },
+  async mounted(){
+  var player = document.getElementById('player');
+
+  var handleSuccess = function(stream) {
+    console.log(stream)
+    if (window.URL) {
+      player.src = window.URL.createObjectURL(stream);
+    } else {
+      player.src = stream;
+    }
+  };
+
+  navigator.mediaDevices.getUserMedia({ audio: true, video: false })
+      .then(handleSuccess)
   }
 }
 </script>
