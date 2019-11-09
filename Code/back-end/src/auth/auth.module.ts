@@ -5,12 +5,13 @@ import { SignUpService } from './signup.service';
 import { LoginService } from './login.service';
 import { AuthHelper } from './auth.helper';
 import { UserModule } from '../user/user.module';
+import { CommandModule } from "../command/command.module";
 
 
 @Module({
   controllers: [ AuthController ],
   providers:[LoginService,SignUpService,AuthHelper],
-  imports: [UserModule]
+  imports: [UserModule, CommandModule ]
 })
 
 export class AuthModule {}

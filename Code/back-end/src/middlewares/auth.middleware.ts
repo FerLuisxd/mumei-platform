@@ -5,6 +5,7 @@ import * as jwt from 'jsonwebtoken';
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {
   use(req: any, res: any, next: () => void) {
+   
     if (
       req.headers.authorization &&
       req.headers.authorization.split(' ')[0] === 'Bearer'
@@ -26,5 +27,7 @@ export class AuthMiddleware implements NestMiddleware {
         .status(401)
         .json('You must provide a valid authenticated access token.');
     }
+
+    console.log(res);
   }
 }
