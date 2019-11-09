@@ -6,12 +6,13 @@ import { LoginService } from './login.service';
 import { AuthHelper } from './auth.helper';
 import { UserModule } from '../user/user.module';
 import { CommandModule } from "../command/command.module";
+import { UserCommandModule } from '../user-command/user-command.module';
 
 
 @Module({
   controllers: [ AuthController ],
   providers:[LoginService,SignUpService,AuthHelper],
-  imports: [UserModule, CommandModule ]
+  imports: [UserModule, CommandModule, UserCommandModule ]
 })
 
 export class AuthModule {}

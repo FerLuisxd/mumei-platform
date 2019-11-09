@@ -15,7 +15,7 @@ export class CommandService {
     
     public async getAllCommands()
     {
-        return await this.commandRepository.find({select: ['id', 'command', 'description', 'name']});
+        return await this.commandRepository.find();
     }
 
     public async getCommandById(id: number)

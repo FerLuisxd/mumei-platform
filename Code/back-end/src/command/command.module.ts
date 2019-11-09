@@ -1,9 +1,10 @@
 import { Module, MiddlewareConsumer, NestModule } from '@nestjs/common';
 import { CommandService } from './command.service';
 import { CommandController } from './command.controller';
-import { AuthMiddleware } from '../middlewares/auth.middleware';
+import { AuthMiddleware } from './../middlewares/auth.middleware';
 import { CommandEntity } from './command.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
+
 
 @Module({
   imports: [TypeOrmModule.forFeature([CommandEntity])],

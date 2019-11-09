@@ -1,5 +1,6 @@
 import {} from '@nestjs/typeorm'
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
+import { UserCommandEntity} from "../user-command/user-command.entity";
 
 @Entity('user')
 export class UserEntity {
@@ -18,5 +19,10 @@ export class UserEntity {
     
     @Column()
     role:string;
+
+    @OneToMany(type => UserCommandEntity , userCommand => userCommand.user)
+    userCommand : UserCommandEntity[];
+
+
 }
 
