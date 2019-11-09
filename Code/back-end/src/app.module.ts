@@ -9,6 +9,11 @@ import { Connection } from 'typeorm';
 import { CommandService } from './command/command.service';
 import { CommandModule } from './command/command.module';
 import { CommandEntity } from './command/command.entity';*/
+/*import { BusinessController } from './business/business.controller';
+import { BusinessModule } from './business/business.module';*/
+/*import { SupportersController } from './supporters/supporters.controller';
+import { SupportersService } from './supporters/supporters.service';
+import { SupportersModule } from './supporters/supporters.module';*/
 
 
 @Module({
