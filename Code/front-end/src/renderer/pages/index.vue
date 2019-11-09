@@ -64,7 +64,7 @@ export default {
           console.log('response ', this.$auth.user)
           // this.$router.push({ name: 'index' })
           this.$axios.$get('/command/')
-          this.$router.push('/')
+          this.$router.push()
           //this.$store.commit('login/setUserData',user.data)
           //this.$auth.redirect('/documents')
           //this.$router.push('/documents/')
