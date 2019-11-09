@@ -27,7 +27,7 @@ export class LoginService {
     }
     return new Promise(async (resolve, reject) => {
       let row = await this.userService.getUserLogin(email);
-      console.log(row)
+      // console.log(row)
       if(row){
       if(row[0].password != encryptedPass){
         return reject(new HttpException("Incorrect password", 401))

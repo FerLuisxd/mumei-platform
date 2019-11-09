@@ -67,7 +67,7 @@ export class UserService {
       user.password = password;
       user.role = 'normal';
       res = await this.userRepository.insert(user);
-      console.log(res);
+      // console.log(res);
     } catch (e) {
       console.log(e);
       err = e;

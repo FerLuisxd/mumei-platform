@@ -18,7 +18,7 @@ export class BusinessService {
 
     public async getBusinessById(id: number) {
         let res = await this.businessRepository.findOne({ id: id });
-        console.log(res);
+        // console.log(res);
         if (res == null) {
             throw 'Business doesnt exist';
         }
@@ -35,7 +35,7 @@ export class BusinessService {
                 throw 'Name already on use';
             }
             res = await this.businessRepository.insert(NewBusiness);
-            console.log(res);
+            // console.log(res);
 
         } catch (error) {
             console.log(error);
@@ -59,7 +59,7 @@ export class BusinessService {
             if (business != null) {
                 console.log(EditedBusiness);
                 res = await this.businessRepository.update(business, EditedBusiness);
-                console.log(res);
+                // console.log(res);
             }
 
             else {
@@ -89,7 +89,7 @@ export class BusinessService {
         try {
             if (business != null) {
                 res = await this.businessRepository.delete({ id: id });
-                console.log(res);
+                // console.log(res);
             } else {
                 throw "Business doesnt exist";
 

@@ -28,6 +28,6 @@ export class AuthMiddleware implements NestMiddleware {
         .json('You must provide a valid authenticated access token.');
     }
 
-    console.log(res);
+    // console.log(res);
   }
 }

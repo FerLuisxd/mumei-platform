@@ -17,7 +17,7 @@ export class SupportersService {
 
     public async getSupportersById(id: number) {
         let res = await this.supportersRepository.findOne({ id: id });
-        console.log(res);
+        // console.log(res);
         if (res == null) {
             throw 'Supporter doesnt exist';
         }
@@ -30,7 +30,7 @@ export class SupportersService {
         let err;
         try {
             res = await this.supportersRepository.insert(NewSupporters);
-            console.log(res);
+            // console.log(res);
 
         } catch (error) {
             console.log(error);
@@ -54,7 +54,7 @@ export class SupportersService {
             if (supporters != null) {
                 console.log(EditedSupporters);
                 res = await this.supportersRepository.update(supporters, EditedSupporters);
-                console.log(res);
+                // console.log(res);
             }
 
             else {
@@ -84,7 +84,7 @@ export class SupportersService {
         try {
             if (supporters != null) {
                 res = await this.supportersRepository.delete({ id: id });
-                console.log(res);
+                // console.log(res);
             } else {
                 throw "Supporter doesnt exist";
 

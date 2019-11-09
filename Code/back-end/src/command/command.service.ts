@@ -21,7 +21,7 @@ export class CommandService {
     public async getCommandById(id: number)
     {
         let res = await this.commandRepository.findOne({id: id});
-        console.log(res);
+        // console.log(res);
         if (res == null){
             throw 'Command doesnt exist';
         }
@@ -43,7 +43,7 @@ export class CommandService {
                 throw 'Name already on use';
               }
             res = await this.commandRepository.insert(NewCommand);
-            console.log(res);
+            // console.log(res);
 
         } catch (error) {
             console.log(error);
@@ -69,7 +69,7 @@ export class CommandService {
             {            
                 console.log(EditedCommand);
                 res = await this.commandRepository.update(commands,EditedCommand);
-                console.log(res);                
+                // console.log(res);                
             }            
 
             else{

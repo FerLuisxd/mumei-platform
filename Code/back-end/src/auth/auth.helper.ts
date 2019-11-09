@@ -19,7 +19,6 @@ export class AuthHelper {
 		const token = {
 		  token: tok
 		}
-		console.log(jwt.decode(tok,{complete: true}))
 
 		jwt.verify(tok, 'mysecret', function(err, payload) {
 			if (!err) {

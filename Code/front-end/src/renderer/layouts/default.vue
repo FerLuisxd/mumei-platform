@@ -4,14 +4,14 @@
     <v-app>
     <v-app-bar app color="green">
       <v-btn text to="/">LoginPage</v-btn>
-      <v-btn text to="/admin/videos" v-if="$auth.user && $auth.user.admin">
+      <!-- <v-btn text to="/" v-if="$auth.user && $auth.user.admin">
         Admin
-      </v-btn>
+      </v-btn> -->
 
       <v-spacer />
       
-      <div v-if="$auth.loggedIn">
-        {{ $auth.user.username }}
+      <div v-if="logged">
+        {{ username }}
         <v-btn text @click="$auth.logout()">Logout</v-btn>
       </div>
       <div v-else>
@@ -35,6 +35,9 @@ export default {
   computed:{
     username(){
       return this.$auth.user.username
+    },
+    logged(){
+      return this.$auth.loggedIn
     }
   }
 }
