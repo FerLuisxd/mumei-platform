@@ -17,9 +17,27 @@ module.exports = {
     
   ],
   modules: [
-    
+    '@nuxtjs/axios',
+    '@nuxtjs/auth',
     '@nuxtjs/vuetify',
   ],
+  auth:{
+    strategies: {
+      local: {
+        endpoints: {
+          login: { url: '/auth/login', method: 'post', propertyName: 'token' },
+          user: { url: '/user/afterLogin', method: 'get', propertyName: 'user' },
+          logout: false,
+        },
+        // tokenRequired: true,
+        // tokenType: 'bearer'
+      }
+    }
+  },
+  axios: {
+    baseURL: `http://localhost:4000/api/`,
+    debug: true
+  },
           vuetify: {
             theme: {
               themes: {

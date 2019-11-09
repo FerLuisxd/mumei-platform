@@ -27,7 +27,7 @@ export class UserController {
     console.log("req!", req.payload)
     const user = await this.usersService.getUser(req.payload.name);
     res.status(HttpStatus.OK).json({user:user[0]});
-  }
+  }   
   @Get('/:id')
   public async getUser(@Res() res, @Param('id') id) {
     const user = await this.usersService.getUser(id);
