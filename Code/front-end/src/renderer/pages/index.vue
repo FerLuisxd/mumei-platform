@@ -1,7 +1,78 @@
 <template>
   <div class="e-nuxt-container">
     <h2>Bienvenidos</h2>
-    
+    <v-layout align-start>
+    <v-flex>
+      <v-toolbar flat color="white">
+        <v-toolbar-title>Commands</v-toolbar-title>
+        <v-divider class="mx-2" inset vertical></v-divider>
+        <v-spacer></v-spacer>
+        <v-text-field
+          class="text-xs-center"
+          v-model="search"
+          append-icon="mdi-anchor"
+          label="Search"
+          single-line
+          hide-details
+          color="green"
+        ></v-text-field>
+        <v-spacer></v-spacer>
+        <v-dialog v-model="dialog" max-width="500px">
+          <v-btn slot="activator" color="green" dark class="mb-2">New</v-btn>
+          <v-card>
+            <v-card-title>
+              <span class="headline">{{ formTitle }}</span>
+            </v-card-title>
+
+            <v-card-text>
+              <v-container grid-list-md>
+                <v-layout wrap>
+                  <v-flex xs12 sm12 md12>
+                    <v-text-field v-model="name" label="Name"></v-text-field>
+                  </v-flex>
+                  <v-flex xs12 sm12 md12>
+                    <v-date-picker v-model="date" label="Date"></v-date-picker>
+                  </v-flex>
+                  <v-flex xs12 sm12 md12>
+                    <v-select v-model="playerId" :items="players" label="Creator"></v-select>
+                  </v-flex>
+                  <v-flex xs12 sm12 md12>
+                    <v-select v-model="modeId" :items="modes" label="Mode"></v-select>
+                  </v-flex>
+                  <v-flex xs12 sm12 md12>
+                    <v-text-field v-model="game" label="game"></v-text-field>
+                  </v-flex>
+                </v-layout>
+              </v-container>
+            </v-card-text>
+
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="blue darken-1" flat @click.native="close">Cancel</v-btn>
+              <v-btn color="blue darken-1" flat @click.native="guardar">Save</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+      </v-toolbar>
+      <v-data-table :headers="headers" :items="tournaments" :search="search" class="elevation-1">
+        <template slot="items" slot-scope="props">
+          <td class="justify-content-start layout px-5">
+            <v-icon small class="mr-2" @click="editItem(props.item)">edit</v-icon>
+            <v-icon small class="mr-2" @click="generar(props.item.id)">gavel</v-icon>
+            <v-btn @click="toMatch(props.item.id)">Matches</v-btn>
+          </td>
+
+          <td>{{ props.item.name }}</td>
+          <td>{{ props.item.date }}</td>
+          <td>{{ props.item.winner }}</td>
+          <td>{{ props.item.playerName }}</td>
+          <td>{{ props.item.nTeams }}</td>
+          <td>{{ props.item.modeFormat }}</td>
+          <td>{{ props.item.game }}</td>
+        </template>
+      </v-data-table>
+    </v-flex>
+  </v-layout>
   </div>
 </template>
 
