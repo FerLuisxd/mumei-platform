@@ -7,13 +7,11 @@ export class UserCommandEntity {//a
     @PrimaryGeneratedColumn()
     id:number
 
-    @ManyToOne(type=>UserEntity, user => user.userCommand,{
-        cascade: true
-    })
+    @ManyToOne(type=>UserEntity, user => user.userCommand,{onDelete: 'CASCADE'})
     @JoinTable()
     user:UserEntity;
 
-    @ManyToOne(type => CommandEntity, command => command.userCommand)
+    @ManyToOne(type => CommandEntity, command => command.userCommand, {onDelete: 'CASCADE'})
     @JoinTable()
     command:CommandEntity;    
 

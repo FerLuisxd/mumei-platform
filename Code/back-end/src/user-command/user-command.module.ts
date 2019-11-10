@@ -5,12 +5,19 @@ import { UserCommandEntity } from './user-command.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthMiddleware } from './../middlewares/auth.middleware';
 
+import { UserEntity} from "../user/user.entity";
+import { UserController} from "../user/user.controller";
+import {  UserService} from "../user/user.service";
+
+import { CommandEntity} from "../command/command.entity";
+import { CommandController } from "../command/command.controller";
+import {  CommandService} from "../command/command.service";
 
 @Module({
-  imports: [TypeOrmModule.forFeature([UserCommandEntity])],
-  providers: [UserCommandService],
-  controllers: [UserCommandController],
-  exports: [UserCommandService],
+  imports: [TypeOrmModule.forFeature([UserCommandEntity, UserEntity, CommandEntity])],
+  providers: [UserCommandService, UserService, CommandService],
+  controllers: [UserCommandController, UserController, CommandController],
+  exports: [UserCommandService, UserService, CommandService],
 })
 export class UserCommandModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
