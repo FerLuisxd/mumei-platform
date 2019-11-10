@@ -3,7 +3,7 @@
     <div>
     <v-app>
     <v-app-bar app color="green">
-      <v-btn text to="/">LoginPage</v-btn>
+      <v-btn text to="/">Main Page</v-btn>
       <!-- <v-btn text to="/" v-if="$auth.user && $auth.user.admin">
         Admin
       </v-btn> -->
@@ -15,7 +15,7 @@
         <v-btn text @click="$auth.logout()">Logout</v-btn>
       </div>
       <div v-else>
-        <v-btn text to="/">Login</v-btn>
+        <v-btn text to="/login">Login</v-btn>
         <v-btn text to="/register">Register</v-btn>
       </div>
     </v-app-bar>
