@@ -19,8 +19,11 @@ export class UserCommandController {
     constructor(private userCommandService: UserCommandService){}
 
     @Get()
-    public async getAllUserCommands(@Res() res){
+    public async getAllUserCommands(@Res() res, @Req() req){
         const userCommands = await this.userCommandService.getAllUserCommmand();
+        console.log(req.payload);
+        
+        
         res.status(HttpStatus.OK).json(userCommands);
     } 
 
@@ -30,30 +33,12 @@ export class UserCommandController {
         res.status(HttpStatus.OK).json(userCommands);
     }
 
-    @Post()
-    public async createUserCommand(@Res() res, @Body() newUserCommand : usercommandDTO){
-        let newuc = new UserCommandEntity();
-        newuc.deletedDate = newUserCommand.deletedDate;
-        newuc.registerDate = newUserCommand.registerDate;      
-        console.log(newUserCommand);
-        const result = await this.userCommandService.createUserCommand(newuc,newUserCommand.userId,newUserCommand.commandId);
-        res.status(HttpStatus.ACCEPTED).json(result);
-    }
-
     @Put(':id')
     public async updateCommand(@Res() res, @Body() updatedUserCommand : UserCommandEntity, @Param('id') id)
     {
         const result = await this.userCommandService.editUserCommand(updatedUserCommand,id);
         res.status(HttpStatus.ACCEPTED).json(result);
     } 
-
-    @Delete(':id')
-    public async deleteCommand(@Res() res, @Param('id') id)
-    {
-        const result = await this.userCommandService.deleteCommand(id);
-        res.status(HttpStatus.ACCEPTED).json(result);
-        
-    }
     
 
 

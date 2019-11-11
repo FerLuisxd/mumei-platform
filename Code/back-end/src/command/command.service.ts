@@ -9,8 +9,7 @@ export class CommandService {
 
     constructor(
         @InjectRepository(CommandEntity)
-        private commandRepository: Repository<CommandEntity>,
-    )
+        private commandRepository: Repository<CommandEntity>)
     {}
     
     public async getAllCommands()
@@ -33,6 +32,7 @@ export class CommandService {
     {
         let res;
         let err;
+        let uc;
         let commands = await this.commandRepository.find({command : NewCommand.command});
         let names = await this.commandRepository.find({name : NewCommand.name});
         try {
@@ -42,7 +42,8 @@ export class CommandService {
               if (names.length > 0) {
                 throw 'Name already on use';
               }
-            res = await this.commandRepository.insert(NewCommand);
+            res = await this.commandRepository.insert(NewCommand);            
+
             // console.log(res);
 
         } catch (error) {
@@ -99,7 +100,8 @@ export class CommandService {
 
         try {
             if (command != null) {
-                res = await this.commandRepository.delete({id:id});
+                //command.usable = false;
+                res = await this.commandRepository.update(command,{usable:false});
                 console.log(res);                
             } else {
                 throw "Command doesnt exist";
@@ -113,8 +115,38 @@ export class CommandService {
 
         return (
             err || {
-                message: "Eliminated",
-                Eliminated: true,
+                message: "Usable False",
+                usable: false,
+                id: id,
+            }
+        );
+    }
+
+    public async usableON(id)
+    {
+        let res;
+        let err;
+        let command = await this.commandRepository.findOne({id:id});
+
+        try {
+            if (command != null) {
+                //command.usable = false;
+                res = await this.commandRepository.update(command,{usable:true});
+                console.log(res);                
+            } else {
+                throw "Command doesnt exist";
+                
+            }
+        } catch (error) {
+            err = error;
+            console.log(err);
+            throw err;            
+        }
+
+        return (
+            err || {
+                message: "Usable True",
+                usable: true,
                 id: id,
             }
         );

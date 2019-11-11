@@ -1,4 +1,4 @@
-import { Injectable, HttpException } from '@nestjs/common';
+import { Injectable, HttpException, Req } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserCommandEntity } from './user-command.entity'
 import {  UserEntity } from "../user/user.entity";
@@ -87,21 +87,18 @@ export class UserCommandService {
         );
     }
 
-    public async createUserCommand(NewUserCommand : UserCommandEntity, userid, commandid)
+    public async createUserCommand(userid: number, command: CommandEntity)
     {
         let res;
         let err;
-        let users = await this.userRepository.findOne({id: userid});
-        let commands = await this.commandRepository.findOne({id: commandid});
-        console.log('Users:', users);
-        console.log('Commands: ', commands);
-        console.log('userid: ', userid);
-        console.log('commandid: ', commandid);
-        try {
-            if (users == null) {throw 'userid doesnt exist';}
-            if (commands == null) {throw 'commandid doesnt exist';}
-            NewUserCommand.command = commands;
-            NewUserCommand.user = users;
+        let today = new Date();
+        let NewUserCommand = new UserCommandEntity();
+      
+        try {            
+            let user = await this.userRepository.findOne({id:userid});
+            NewUserCommand.command = command;
+            NewUserCommand.user = user;
+            NewUserCommand.registerDate = today;
             res = await this.userCommandRepository.insert(NewUserCommand);
 
         } catch (error) {

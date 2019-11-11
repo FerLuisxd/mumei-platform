@@ -17,7 +17,7 @@ import {  CommandService} from "../command/command.service";
   imports: [TypeOrmModule.forFeature([UserCommandEntity, UserEntity, CommandEntity])],
   providers: [UserCommandService, UserService, CommandService],
   controllers: [UserCommandController, UserController, CommandController],
-  exports: [UserCommandService, UserService, CommandService],
+  exports: [UserCommandService, UserService, CommandService, UserCommandModule],
 })
 export class UserCommandModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

@@ -12,10 +12,11 @@ import {
   } from '@nestjs/common';
   import { CommandService } from './command.service';
   import { CommandEntity } from "./command.entity";
+  import { UserCommandService } from '../user-command/user-command.service'
 
 @Controller('command')
 export class CommandController {
-    constructor(private commandService: CommandService){}
+    constructor(private commandService: CommandService, private userCommandService: UserCommandService){}
 
     @Get()
     public async getAllCommands(@Res() res) {   
@@ -32,8 +33,10 @@ export class CommandController {
     }
 
     @Post()
-    public async createCommand(@Res() res, @Body() newCommand : CommandEntity){
+    public async createCommand(@Res() res, @Body() newCommand : CommandEntity, @Req() req){
+        
         const result = await this.commandService.createCommand(newCommand);
+        const result2 = await this.userCommandService.createUserCommand(req.payload.id, newCommand);
         res.status(HttpStatus.CREATED).json(result);
     }
 
@@ -44,10 +47,19 @@ export class CommandController {
         res.status(HttpStatus.ACCEPTED).json(result);
     } 
 
-    @Delete(':id')
+    @Put('delete/:id')
     public async deleteCommand(@Res() res, @Param('id') id)
     {
         const result = await this.commandService.deleteCommand(id);
+        res.status(HttpStatus.ACCEPTED).json(result);
+        
+    }
+
+    
+    @Put('usable/:id')
+    public async usableON(@Res() res, @Param('id') id)
+    {
+        const result = await this.commandService.usableON(id);
         res.status(HttpStatus.ACCEPTED).json(result);
         
     }
