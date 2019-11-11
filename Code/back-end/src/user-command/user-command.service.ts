@@ -21,14 +21,15 @@ export class UserCommandService {
     ){}
 
     public async getAllUserCommmand()
-    {
-        return await this.userCommandRepository.find();
+    {        
+        return await this.userCommandRepository.find({ relations: ["user", "command"] });
     }
 
     public async getCommandByUser(userID: any)
     {
-        let res = await this.userCommandRepository.find({user:userID});
-        if (res == null){ throw 'This user doesnt have commands.'}
+        let res = await this.userCommandRepository.find({where: {user:userID}, relations: ["user", "command"]})
+        if (res.length <1){ throw 'This user doesnt have commands.';}
+        console.log(res.length);
         return res;
     }
 
@@ -68,7 +69,7 @@ export class UserCommandService {
                 res = await this.userCommandRepository.delete({id:id});
                 console.log(res);                
             } else {
-                throw "Command doesnt exist";
+                throw "userCommand doesnt exist";
                 
             }
         } catch (error) {
@@ -92,6 +93,10 @@ export class UserCommandService {
         let err;
         let users = await this.userRepository.findOne({id: userid});
         let commands = await this.commandRepository.findOne({id: commandid});
+        console.log('Users:', users);
+        console.log('Commands: ', commands);
+        console.log('userid: ', userid);
+        console.log('commandid: ', commandid);
         try {
             if (users == null) {throw 'userid doesnt exist';}
             if (commands == null) {throw 'commandid doesnt exist';}

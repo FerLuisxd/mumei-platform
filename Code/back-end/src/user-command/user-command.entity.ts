@@ -8,11 +8,11 @@ export class UserCommandEntity {//a
     id:number
 
     @ManyToOne(type=>UserEntity, user => user.userCommand,{onDelete: 'CASCADE'})
-    @JoinTable()
+  //  @JoinTable()
     user:UserEntity;
 
     @ManyToOne(type => CommandEntity, command => command.userCommand, {onDelete: 'CASCADE'})
-    @JoinTable()
+   // @JoinTable()
     command:CommandEntity;    
 
     @Column('datetime')

@@ -1,8 +1,13 @@
-export class usercommandDTO{      
+import { UserEntity } from "../user/user.entity";
+import { CommandEntity } from "../command/command.entity";
 
-    userId: number;
-    commandId: number;
+export class usercommandDTO{  
+    
+    userId:number;
+
+    commandId:number;
+
     registerDate: Date;
-    deletedDate: Date;
 
+    deletedDate: Date;  
 }
