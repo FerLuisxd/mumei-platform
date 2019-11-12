@@ -38,6 +38,9 @@
                   <v-flex xs12 sm12 md12>
                     <v-text-field  v-model="command" label="Command"></v-text-field>
                   </v-flex>
+                    <v-flex v-if="editedIndex>-1" sm12 md12>
+                    <v-text-field  v-model="command" label="Command"></v-text-field>
+                  </v-flex>
                 </v-layout>
               </v-container>
             </v-card-text>
@@ -51,20 +54,21 @@
         </v-dialog>
       </v-toolbar>  
       <v-data-table :headers="headers" :items="commands" :search="search" class="elevation-1">
-            <template v-slot:top></template>
- <v-icon
+      <template v-slot:item.action="{ item }">
+      <v-icon
         small
         class="mr-2"
-        @click="editItem(item)"
+        @click="editItem(item.command)"
       >
-        mdi-edit
+        edit
       </v-icon>
       <v-icon
         small
-        @click="deleteItem(item)"
+        @click="deleteItem(item.command)"
       >
-        mdi-delete
+        delete
       </v-icon>
+    </template>
           <template v-slot:no-data>
       <v-btn color="primary" @click.native="initialize">Reset</v-btn>
     </template>
@@ -111,7 +115,8 @@ export default {
         {text: "Name",value: "command.name", sortable: false},
         { text: "Description", value: "command.description", sortable: false },           ///CAMPOS
         { text: "Command", value: "command.command", sortable: false },  
-        { text: "Enabled", value: "command.usable", sortable: true }            
+        { text: "Enabled", value: "command.usable", sortable: true },
+        { text: 'Actions', value: 'action', sortable: false }            
       ],
       search: "",
       editedInde:-1,
