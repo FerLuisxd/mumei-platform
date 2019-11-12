@@ -2,7 +2,7 @@ import { HttpException, Injectable } from '@nestjs/common';
 import { AuthHelper } from './auth.helper';
 // import { db } from '../db/sqlLite3';
 import { UserService } from '../user/user.service';
-const DB = require('better-sqlite3-helper');
+
 let key = process.env.KEY||'dsaadsadsadsafsads2adsa';
  //update
 // Create an encryptor:

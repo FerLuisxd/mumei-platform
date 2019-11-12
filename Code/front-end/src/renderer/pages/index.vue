@@ -1,7 +1,8 @@
 <template>
   <div class="e-nuxt-container">
     <h2>Bienvenidos</h2>
-    <v-layout align-start>
+       <div v-if="logged">
+           <v-layout align-start>
     <v-flex>
       <v-toolbar flat color="white">
         <v-toolbar-title>Commands</v-toolbar-title>
@@ -18,12 +19,13 @@
         ></v-text-field>
         <v-spacer></v-spacer>
         <v-dialog v-model="dialog" max-width="500px">
-          <v-btn slot="activator" color="green" dark class="mb-2">New</v-btn>
+           <template v-slot:activator="{ on }">
+          <v-btn  v-on="on" color="green" dark class="mb-2">New</v-btn>
+           </template>
           <v-card>
             <v-card-title>
               <span class="headline">{{ formTitle }}</span>
             </v-card-title>
-
             <v-card-text>
               <v-container grid-list-md>
                 <v-layout wrap>
@@ -31,16 +33,10 @@
                     <v-text-field v-model="name" label="Name"></v-text-field>
                   </v-flex>
                   <v-flex xs12 sm12 md12>
-                    <v-date-picker v-model="date" label="Date"></v-date-picker>
+                    <v-text-field  v-model="description" label="Description"></v-text-field>
                   </v-flex>
                   <v-flex xs12 sm12 md12>
-                    <v-select v-model="playerId" :items="players" label="Creator"></v-select>
-                  </v-flex>
-                  <v-flex xs12 sm12 md12>
-                    <v-select v-model="modeId" :items="modes" label="Mode"></v-select>
-                  </v-flex>
-                  <v-flex xs12 sm12 md12>
-                    <v-text-field v-model="game" label="game"></v-text-field>
+                    <v-text-field  v-model="command" label="Command"></v-text-field>
                   </v-flex>
                 </v-layout>
               </v-container>
@@ -48,31 +44,38 @@
 
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" flat @click.native="close">Cancel</v-btn>
-              <v-btn color="blue darken-1" flat @click.native="guardar">Save</v-btn>
+              <v-btn color="green" text @click.native="close">Cancel</v-btn>
+              <v-btn color="green" text @click.native="save">Save</v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
-      </v-toolbar>
-      <v-data-table :headers="headers" :items="tournaments" :search="search" class="elevation-1">
-        <template slot="items" slot-scope="props">
-          <td class="justify-content-start layout px-5">
-            <v-icon small class="mr-2" @click="editItem(props.item)">edit</v-icon>
-            <v-icon small class="mr-2" @click="generar(props.item.id)">gavel</v-icon>
-            <v-btn @click="toMatch(props.item.id)">Matches</v-btn>
-          </td>
-
-          <td>{{ props.item.name }}</td>
-          <td>{{ props.item.date }}</td>
-          <td>{{ props.item.winner }}</td>
-          <td>{{ props.item.playerName }}</td>
-          <td>{{ props.item.nTeams }}</td>
-          <td>{{ props.item.modeFormat }}</td>
-          <td>{{ props.item.game }}</td>
-        </template>
+      </v-toolbar>  
+      <v-data-table :headers="headers" :items="commands" :search="search" class="elevation-1">
+            <template v-slot:top></template>
+ <v-icon
+        small
+        class="mr-2"
+        @click="editItem(item)"
+      >
+        mdi-edit
+      </v-icon>
+      <v-icon
+        small
+        @click="deleteItem(item)"
+      >
+        mdi-delete
+      </v-icon>
+          <template v-slot:no-data>
+      <v-btn color="primary" @click.native="initialize">Reset</v-btn>
+    </template>
       </v-data-table>
     </v-flex>
   </v-layout>
+      </div>
+      <div v-else>
+       
+      </div>
+
   </div>
 </template>
 
@@ -101,66 +104,137 @@ export default {
           const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
           return pattern.test(value) || "Invalid e-mail.";
         }
-      ]
+      ],
+      commands: [],
+      dialog: false,
+      headers:[
+        {text: "Name",value: "command.name", sortable: false},
+        { text: "Description", value: "command.description", sortable: false },           ///CAMPOS
+        { text: "Command", value: "command.command", sortable: false },  
+        { text: "Enabled", value: "command.usable", sortable: true }            
+      ],
+      search: "",
+      editedInde:-1,
+      id:"",
+      description:'',
+      name:'',
+      command:'',
+      usable:null,
+      editedIndex:-1
     };
   },
+  created(){
+    this.list();
+  },
   methods: {
-     async login() {
-        // let loader = Loading.service({ fullscreen: true })
-        try {
-          console.log('entro')
-          // this.handleClickStart()
-          // this.loginLoading = true
-          // await this.delay(4000)
-          // this.loginLoading = false
+    close() {
+      this.dialog = false;
+      this.editedIndex=-1;
+    },
+    editItem(item) {
+      this.id = item.id;
+      this.name = item.name;
+      this.description = item.description;
+      this.command = item.command;
+      this.usable = item.usable;
+      this.game = item.game;
+      this.editedIndex = 1;
+      this.dialog = true;
+    },
+    save(){
+            if (this.editedIndex > -1) {
+        //Código para editar
 
-     
-          //et user = await this.$store.dispatch('login/postLogin',{email:this.email, password:this.password})
-          await this.$auth
-            .loginWith('local', {
-              data: {
-                email: this.email,
-                password: this.password
-              }
-            })
-            .then(res => {
-              console.log('res', res, this.$auth.user)
-              console.log('he',this.$auth.loggedIn,this.$auth)
-            })
-            .catch(e=> console.log("Err",e))
-          console.log('response ', this.$auth.user)
-          // this.$router.push({ name: 'index' })
-          this.$axios.$get('/command/')
-          this.$router.push()
-          //this.$store.commit('login/setUserData',user.data)
-          //this.$auth.redirect('/documents')
-          //this.$router.push('/documents/')
-        } catch (err) {
-          console.log('ERROR') //si funciona cuando no encuentra
-          console.log(err)
-          // this.$showAlert({ title: 'Credenciales/ Inválidas', message: `Correo electrónico y/o contraseña incorrecta.` })
-          //   this.$refs.alertDialog.open('Error Verifica crediedenciales')
-        }
-        // loader.close()s
-      },
+        let me = this;
+        me.$axios
+          .put("/command", {
+            command:{name: me.name,
+            description: me.description,
+            command: me.command},
+            id:me.id
+          })
+          .then(function(response) {
+            console.log(response);
+             if (response.data != true) {
+          }
+            me.close();
+            me.listar();
+            me.limpiar();
+          })
+        
+      } else {
+        //Código para guardar
+        let me = this;
+        me.$axios
+          .post("/command", {
+            name: me.name,
+            description: me.description,
+            command: me.command
+      
+          })
+          .then(function(response) {
+            console.log(response);
+                        if (response.data != true) {
+          }
+            me.close();
+            me.list();
+            me.clean();
+          })
+          
+      }
+    },
+    clean() {
+      this.id = "";
+      this.name = "";
+      this.command = "";
+      this.usable= null;
+      this.description='';
+      //this.direccion = "";
+      //this.telefono = "";
+    },
+    list() {
+      //TODO
+      let me= this;
+      me.$axios
+        .get(`/user-command/${me.userID}`)
+        .then(function(response){
+            me.commands = response.data;
+        })
+
+    },
     openURL(url) {
       remote.shell.openExternal(url);
     },
 
   },
   async mounted() {
-  
+  this.list()
   },
   watch: {
     email: function() {
-      console.log(this.email);
+
+    },
+        dialog(val) {
+      val || this.close();
     }
   },
   computed:{
-     btnDisabled1() {
+    btnDisabled1() {
         const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         return  (!pattern.test(this.email) || this.password.length < 3)
-      }
+    },
+    username(){
+      return this.$auth.user.username
+    },
+    userID(){
+      return this.$auth.user.id
+    },
+    logged(){
+      return this.$auth.loggedIn
+    },
+    formTitle() {
+      return this.editedIndex === -1 ? "New Command" : "Update Command";
+    }
   }
 };
 </script>

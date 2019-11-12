@@ -27,8 +27,6 @@
     "@nestjs/typeorm": "^6.2.0",
     "@nestjs/websockets": "6.6.7",
     "babel-plugin-transform-typescript-metadata": "^0.2.2",
-    "better-sqlite3": "^5.4.3",
-    "better-sqlite3-helper": "2.1.1",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "js": "^0.1.0",
@@ -39,7 +37,6 @@
     "rimraf": "3.0.0",
     "rxjs": "6.5.3",
     "simple-encryptor": "^3.0.0",
-    "sqlite3": "4.1.0",
     "typeorm": "^0.2.20",
     "uuid": "^3.3.3"
   },

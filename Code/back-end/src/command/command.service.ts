@@ -2,7 +2,6 @@ import { Injectable, HttpException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CommandEntity } from './command.entity';
 import { Repository } from 'typeorm';
-const DB = require('better-sqlite3-helper');
 
 @Injectable()
 export class CommandService {

@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { SupportersEntity } from './supporters.entity';
-const DB = require('better-sqlite3-helper');
+
 
 @Injectable()
 export class SupportersService {

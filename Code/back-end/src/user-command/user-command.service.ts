@@ -5,7 +5,6 @@ import {  UserEntity } from "../user/user.entity";
 import {  CommandEntity } from "../command/command.entity";
 import { Repository } from 'typeorm';
 
-const DB = require('better-sqlite3-helper');
 
 
 @Injectable()
@@ -28,7 +27,7 @@ export class UserCommandService {
     public async getCommandByUser(userID: any)
     {
         let res = await this.userCommandRepository.find({where: {user:userID}, relations: ["user", "command"]})
-        if (res.length <1){ throw 'This user doesnt have commands.';}
+        // if (res.length <1){ throw 'This user doesnt have commands.';}
         console.log(res.length);
         return res;
     }

@@ -4,7 +4,6 @@ import * as uuid from 'uuid';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from './user.entity';
 import { Repository } from 'typeorm';
-const DB = require('better-sqlite3-helper');
 
 @Injectable()
 export class UserService {
@@ -82,29 +81,7 @@ export class UserService {
       }
     );
   }
-  public createUserSQLite(username: String, email: String, password: String) {
-    return new Promise((resolve, reject) => {
-      try {
-        let res = DB().insert('user', {
-          username: username,
-          password: password,
-          email: email,
-          role: 'normal',
-        });
-        if (res)
-          return resolve({
-            message: 'Registered',
-            registered: true,
-            id: res,
-            role: 'normal',
-          });
-        return reject(new HttpException('Not Registered', 500));
-      } catch (error) {
-        return reject(new HttpException(error, 500));
-      }
 
-    });
-  }
   /*******************************************************
    * Update User
    *******************************************************/
@@ -116,25 +93,7 @@ export class UserService {
     password: String,
     role: String,
   ) {
-    return new Promise((resolve, reject) => {
-      try {
-        let res = DB().updateWithBlackList(
-          'user',
-          {
-            username: username,
-            password: password,
-            role: role,
-          },
-          id,
-          ['id', 'email'],
-        );
-        if (res) return resolve({ message: 'Registered' });
-        return reject(new HttpException('Not Registered', 500));
-      } catch (err) {
-        return reject(new HttpException(err, 500));
-      }
-  
-    });
+
   }
 
   /*******************************************************
