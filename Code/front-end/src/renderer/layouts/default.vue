@@ -8,7 +8,7 @@
         Admin
       </v-btn> -->
 <div v-if="logged">
-  <v-btn text to="/message">Chat</v-btn>
+  <v-btn text to="/chat/chat">Chat</v-btn>
 </div>
       <v-spacer />
       

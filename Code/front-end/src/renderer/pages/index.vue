@@ -38,6 +38,15 @@
                       <v-flex xs12 sm12 md12>
                         <v-text-field v-model="command" label="Command"></v-text-field>
                       </v-flex>
+                      <v-flex xs12 sm12 md12>
+                        <v-text-field v-model="shortcut" label="shortcut"></v-text-field>
+                      </v-flex>
+                                            <v-flex xs12 sm12 md12>
+                        <v-text-field v-model="location" label="location"></v-text-field>
+                      </v-flex>
+                                            <v-flex xs12 sm12 md12>
+                        <v-text-field v-model="keymap" label="keymap"></v-text-field>
+                      </v-flex>
                       <v-flex v-if="editedIndex>-1" sm12 md12>
                         <v-checkbox color="green" v-model="usable" :label="`Enabled`"></v-checkbox>
                       </v-flex>
@@ -104,8 +113,9 @@ export default {
       dialog: false,
       headers: [
         { text: "Name", value: "command.name", sortable: false },
-        { text: "Description", value: "command.description", sortable: false }, ///CAMPOS
         { text: "Command", value: "command.command", sortable: false },
+        { text: "Shortcut", value: "command.shortcut", sortable: false }, ///CAMPOS
+        { text: "KeyMap", value: "command.keymap", sortable: false }, ///CAMPOS
         { text: "Enabled", value: "usable", sortable: true },
         { text: "Actions", value: "action", sortable: false }
       ],
@@ -115,12 +125,15 @@ export default {
       description: "",
       name: "",
       command: "",
+      shortcut:'',
+      keymap:'',
+      location:'',
       usable: null,
       editedIndex: -1
     };
   },
   created() {
-    this.list();
+
   },
   methods: {
     close() {
@@ -133,7 +146,9 @@ export default {
       this.description = item.description;
       this.command = item.command;
       this.usable = item.usable;
-      this.game = item.game;
+      this.shortcut = item.shortcut;
+      this.keymap = item.keymap;
+      this.location=item.location
       this.editedIndex = 1;
       this.dialog = true;
     },
@@ -149,7 +164,10 @@ export default {
               name: me.name,
               description: me.description,
               command: me.command,
-              usable:me.usable
+              usable:me.usable,
+            shortcut:me.shortcut,
+             keymap:me.keymap,
+            location:me.location
             },
             id: me.id
           })
@@ -168,7 +186,10 @@ export default {
           .post("/command", {
             name: me.name,
             description: me.description,
-            command: me.command
+            command: me.command,
+            shortcut:me.shortcut,
+            keymap:me.keymap,
+            location:me.location
           })
           .then(function(response) {
             console.log(response);
@@ -186,6 +207,9 @@ export default {
       this.command = "";
       this.usable = null;
       this.description = "";
+      this.shortcut='',
+      this.keymap='',
+      this.location=''
       //this.direccion = "";
       //this.telefono = "";
     },
@@ -201,7 +225,10 @@ export default {
     }
   },
   async mounted() {
+       if(this.logged){
+    console.log("entre")
     this.list();
+    }
   },
   watch: {
     email: function() {},

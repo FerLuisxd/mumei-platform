@@ -8,10 +8,19 @@ export class CommandEntity {
     @PrimaryGeneratedColumn()
     id:number;
 
+    @Column({nullable:true})
+    shortcut:string;
+
+    @Column({nullable:true})
+    location:string;
+
+    @Column({nullable:true})
+    keymap:string;
+
     @Column()
     command:string;
 
-    @Column()
+    @Column({nullable:true})
     description:string;
 
     @Column()
