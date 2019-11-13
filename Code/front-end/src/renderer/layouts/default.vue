@@ -7,11 +7,13 @@
       <!-- <v-btn text to="/" v-if="$auth.user && $auth.user.admin">
         Admin
       </v-btn> -->
-
+<div v-if="logged">
+  <v-btn text to="/message">Chat</v-btn>
+</div>
       <v-spacer />
       
       <div v-if="logged">
-        {{ username }}
+        <v-btn text to="/user">{{ username }}</v-btn>
         <v-btn text @click="$auth.logout()">Logout</v-btn>
       </div>
       <div v-else>
