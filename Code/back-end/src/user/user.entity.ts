@@ -1,6 +1,7 @@
 import {} from '@nestjs/typeorm'
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
 import { UserCommandEntity} from "../user-command/user-command.entity";
+import { UserChatEntity } from '../user-chat/user-chat.entity';
 
 @Entity('user')
 export class UserEntity {
@@ -23,6 +24,7 @@ export class UserEntity {
     @OneToMany(type => UserCommandEntity , userCommand => userCommand.user)
     userCommand : UserCommandEntity[];
 
-
+    @OneToMany(type => UserChatEntity , userChat => userChat.user)
+    userChat : UserChatEntity[];
 }
 
