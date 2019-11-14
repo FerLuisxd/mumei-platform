@@ -41,10 +41,10 @@
                       <v-flex xs12 sm12 md12>
                         <v-text-field v-model="shortcut" label="shortcut"></v-text-field>
                       </v-flex>
-                                            <v-flex xs12 sm12 md12>
+                      <v-flex xs12 sm12 md12>
                         <v-text-field v-model="location" label="location"></v-text-field>
                       </v-flex>
-                                            <v-flex xs12 sm12 md12>
+                      <v-flex xs12 sm12 md12>
                         <v-text-field v-model="keymap" label="keymap"></v-text-field>
                       </v-flex>
                       <v-flex v-if="editedIndex>-1" sm12 md12>
@@ -64,10 +64,8 @@
           </v-toolbar>
           <v-data-table :headers="headers" :items="commands " :search="search" class="elevation-1">
             <template v-slot:item.usable="{ item }">
-     <v-icon>
-	{{ item.command.usable ? "mdi-checkbox-marked" : "mdi-checkbox-blank-outline" }}
-     </v-icon>
-</template>
+              <v-icon>{{ item.command.usable ? "mdi-checkbox-marked" : "mdi-checkbox-blank-outline" }}</v-icon>
+            </template>
             <template v-slot:item.action="{ item }">
               <v-icon small class="mr-2" @click="editItem(item.command)">edit</v-icon>
               <v-icon small @click="deleteItem(item.command)">delete</v-icon>
@@ -79,7 +77,19 @@
         </v-flex>
       </v-layout>
     </div>
-    <div v-else></div>
+    <div v-else>
+
+       <label class="file-select">
+    <!-- We can't use a normal button element here, as it would become the target of the label. -->
+    <div class="select-button">
+      <!-- Display the filename if a file has been selected. -->
+      <span v-if="value">Selected File: {{value.name}}</span>
+      <span v-else>Select File</span>
+    </div>
+    <!-- Now, the file input that we hide. -->
+    <input type="file" webkitdirectory    @change="handleFileChange"/>
+  </label>
+    </div>
   </div>
 </template>
 
@@ -125,17 +135,21 @@ export default {
       description: "",
       name: "",
       command: "",
-      shortcut:'',
-      keymap:'',
-      location:'',
+      shortcut: "",
+      keymap: "",
+      location: "",
       usable: null,
       editedIndex: -1
     };
   },
-  created() {
-
-  },
+  created() {},
   methods: {
+
+    handleFileChange(e) {
+      // Whenever the file changes, emit the 'input' event with the file data.
+      console.log("target",e.target.files[0].path)
+      // this.$emit('input', e.target.files[0])
+    },
     close() {
       this.dialog = false;
       this.editedIndex = -1;
@@ -148,7 +162,7 @@ export default {
       this.usable = item.usable;
       this.shortcut = item.shortcut;
       this.keymap = item.keymap;
-      this.location=item.location
+      this.location = item.location;
       this.editedIndex = 1;
       this.dialog = true;
     },
@@ -157,17 +171,17 @@ export default {
         //Código para editar
 
         let me = this;
-        console.log(me.id)
+        console.log(me.id);
         me.$axios
           .put(`/command/${me.id}`, {
             command: {
               name: me.name,
               description: me.description,
               command: me.command,
-              usable:me.usable,
-            shortcut:me.shortcut,
-             keymap:me.keymap,
-            location:me.location
+              usable: me.usable,
+              shortcut: me.shortcut,
+              keymap: me.keymap,
+              location: me.location
             },
             id: me.id
           })
@@ -187,9 +201,9 @@ export default {
             name: me.name,
             description: me.description,
             command: me.command,
-            shortcut:me.shortcut,
-            keymap:me.keymap,
-            location:me.location
+            shortcut: me.shortcut,
+            keymap: me.keymap,
+            location: me.location
           })
           .then(function(response) {
             console.log(response);
@@ -207,9 +221,7 @@ export default {
       this.command = "";
       this.usable = null;
       this.description = "";
-      this.shortcut='',
-      this.keymap='',
-      this.location=''
+      (this.shortcut = ""), (this.keymap = ""), (this.location = "");
       //this.direccion = "";
       //this.telefono = "";
     },
@@ -225,9 +237,9 @@ export default {
     }
   },
   async mounted() {
-       if(this.logged){
-    console.log("entre")
-    this.list();
+    if (this.logged) {
+      console.log("entre");
+      this.list();
     }
   },
   watch: {
