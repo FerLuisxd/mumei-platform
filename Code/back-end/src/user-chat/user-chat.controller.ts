@@ -17,18 +17,26 @@ import {
 export class UserChatController {
     constructor(private userChatService: UserChatService){}
 
-    @Get()
+   /* @Get()
     public async getAllUserChats(@Res() res, @Req() req){
         const userChats = await this.userChatService.getAllUserCommmand();
         console.log(req.payload);
         
         
         res.status(HttpStatus.OK).json(userChats);
-    } 
+    }*/
 
-    @Get(':userid')
-    public async getChatsByUserID(@Res() res, @Param('userid') userid){
-        const userChats = await this.userChatService.getChatByUser(userid);
+    @Post()
+    public async postMessage(@Res() res, @Req() req, @Body() userChat){
+        const userChats = await this.userChatService.createUserChat(req.payload.id, userChat.message);
+        console.log(req.payload); 
+        res.status(HttpStatus.OK).json(userChats);
+    }
+
+    @Get()
+    public async getChatsByUserID(@Req() req, @Res() res){
+        console.log('userid', req.payload.id)
+        const userChats = await this.userChatService.getChatByUser(req.payload.id);        
         res.status(HttpStatus.OK).json(userChats);
     }
 
