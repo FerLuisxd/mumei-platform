@@ -1,29 +1,30 @@
 <template>
   <div class="e-nuxt-container">
-      <v-layout align-center justify-center>
-        <v-flex xs12 sm8 md4>
-          <v-card class="elevation-12" color="primary lighten-4">
-            <v-toolbar dark color="primary darken-1">
-              <v-toolbar-title>Chat</v-toolbar-title>
-            </v-toolbar>
-            <v-card-text>
-        <v-list ref="chat" id="logs">
-          <template v-for="(item, index) in logs">
-            <v-subheader v-if="item" :key="index">{{ item }}</v-subheader>
-          </template>
-        </v-list>
-            </v-card-text>
-            <v-card-actions>
-              <v-form @submit.prevent="submit">
+    <v-layout align-center justify-center>
+      <v-flex xs12 sm8 md4>
+        <v-card class="elevation-12" color="primary lighten-4">
+          <v-toolbar dark color="primary darken-1">
+            <v-toolbar-title>Chat</v-toolbar-title>
+          </v-toolbar>
+          <v-card-text>
+            <v-list class="overflow-y-auto" style="max-height: 300px" color="primary lighten-4" 
+              ref="chat" id="logs">
+              <template v-for="(item, index) in logs">
+                <v-list-item v-if="item" :key="index">{{ item }}</v-list-item>
+              </template>
+            </v-list>
+          </v-card-text>
+          <v-card-actions>
+            <v-form @submit.prevent="submit">
               <v-text-field v-model="msg" label="Message" single-line solo-inverted></v-text-field>
               <v-btn fab dark small color="primary" type="submit">
                 <v-icon dark>mdi-send</v-icon>
               </v-btn>
-                </v-form>
-            </v-card-actions>
-          </v-card>
-        </v-flex>
-      </v-layout>
+            </v-form>
+          </v-card-actions>
+        </v-card>
+      </v-flex>
+    </v-layout>
   </div>
 </template>
 
@@ -37,23 +38,46 @@ export default {
     SystemInformation
   },
   data() {
-      return {
-    logs: [],
-    msg: null
-      }
+    return {
+      logs: [],
+      msg: null
+    };
   },
   created() {
+    let me = this;
+    me.$axios.get(`/user-chat`).then(function(response) {
+        for (const prop in response.data) {
+          me.logs.push(response.data[prop].message)
+        }
+      });
   },
   methods: {
-       submit() {
+    executeItem(item){
+      
+      this.$store.dispatch('execute',item)
+    },
+    save(m) {
+      let me = this;
+        me.$axios
+          .post(`/user-chat`, {
+            message: m,
+            registerDate: "1-1-1111"
+          })
+    },
+    submit() {
+      this.save(this.msg)
+      console.log("Guarde")
       this.logs.push(this.msg);
+      console.log("Pushee")
+      this.executeItem(this.msg)
+      console.log(this.msg)
+      console.log("Ejecute")
       this.msg = "";
     }
   },
-  async mounted() {
-  },
+  async mounted() {},
   watch: {
-logs() {
+    logs() {
       setTimeout(() => {
         this.$refs.chat.$el.scrollTop = this.$refs.chat.$el.scrollHeight;
       }, 0);
