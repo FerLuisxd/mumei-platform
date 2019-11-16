@@ -40,7 +40,8 @@ export default {
   data() {
     return {
       logs: [],
-      msg: null
+      msg: null,
+      commands: [],
     };
   },
   created() {
@@ -52,12 +53,46 @@ export default {
       });
   },
   methods: {
+    async list() {
+      //TODO
+        //TODO
+      let me = this;
+      me.$axios.get(`/user-command/${me.userID}`).then(function(response) {
+      
+        for (let i = 0; i < response.data.length; i++) {
+          const element = response.data[i];
+          me.commands.push(element.command)
+          
+        }
+        console.log("me",me.commands )
+      });
+
+    },
     executeItem(item){
       
       this.$store.dispatch('execute',item)
     },
     save(m) {
       let me = this;
+      console.log('hi', me.commands)
+          for (let i = 0; i < me.commands.length; i++) {
+          
+        const element = me.commands[i];
+        
+        if(me.commands[i].name==m)
+        {
+          console.log('command ', me.commands[i]);
+        this.$store.dispatch('execute',me.commands[i]); 
+        break
+        }
+        else if(me.commands[i].shortcut==m)
+        { 
+                    console.log('command short ', me.commands[i]);
+
+          this.$store.dispatch('execute',me.commands[i]);
+          break 
+        }     
+      }
         me.$axios
           .post(`/user-chat`, {
             message: m,
@@ -69,13 +104,16 @@ export default {
       console.log("Guarde")
       this.logs.push(this.msg);
       console.log("Pushee")
-      this.executeItem(this.msg)
+      // this.executeItem(this.msg)
       console.log(this.msg)
-      console.log("Ejecute")
+      // console.log("Ejecute")
       this.msg = "";
     }
   },
-  async mounted() {},
+
+  async mounted() {
+    await this.list()
+  },
   watch: {
     logs() {
       setTimeout(() => {
