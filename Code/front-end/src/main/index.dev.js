@@ -1,4 +1,4 @@
-import { Menu, MenuItem, app } from 'electron'
+import { Menu, MenuItem, app, globalShortcut } from 'electron'
 import electronDebug from 'electron-debug'
 import vueDevtools from 'vue-devtools'
 import { ELECTRON_RELAUNCH_CODE } from '../../.electron-nuxt/config'
@@ -26,6 +26,11 @@ app.on('ready', () => {
 
 mainWinHandler.onCreated(browserWindow => {
   browserWindow.webContents.openDevTools()
+  console.log('global', globalShortcut)
+  globalShortcut.register('Alt+1',function(){
+    browserWindow.show()
+    console.log('method done')
+  })
 })
 
 // Require `main` process to boot app

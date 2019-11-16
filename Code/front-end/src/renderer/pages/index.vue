@@ -42,6 +42,7 @@
                         <v-text-field v-model="shortcut" label="shortcut"></v-text-field>
                       </v-flex>
                       <v-flex xs12 sm12 md12>
+                       <input type="file" webkitdirectory    @change="handleFileChange"/>
                         <v-text-field v-model="location" label="location"></v-text-field>
                       </v-flex>
                       <v-flex xs12 sm12 md12>
@@ -67,6 +68,7 @@
               <v-icon>{{ item.command.usable ? "mdi-checkbox-marked" : "mdi-checkbox-blank-outline" }}</v-icon>
             </template>
             <template v-slot:item.action="{ item }">
+              <v-icon small class="mr-2" @click="executeItem(item.command)">exec</v-icon>
               <v-icon small class="mr-2" @click="editItem(item.command)">edit</v-icon>
               <v-icon small @click="deleteItem(item.command)">delete</v-icon>
             </template>
@@ -87,7 +89,7 @@
       <span v-else>Select File</span>
     </div>
     <!-- Now, the file input that we hide. -->
-    <input type="file" webkitdirectory    @change="handleFileChange"/>
+    <!-- <input type="file" webkitdirectory    @change="handleFileChange"/> -->
   </label>
     </div>
   </div>
@@ -144,10 +146,18 @@ export default {
   },
   created() {},
   methods: {
-
+    executeItem(item){
+      this.$store.dispatch('execute',item)
+    },
     handleFileChange(e) {
       // Whenever the file changes, emit the 'input' event with the file data.
-      console.log("target",e.target.files[0].path)
+      try {
+        // console.log(e.target.files[0].path)
+        this.location = e.target.files.length>0? e.target.files[0].path : ""
+      } catch (e) {
+        console.error(e )
+      }
+
       // this.$emit('input', e.target.files[0])
     },
     close() {
@@ -238,7 +248,6 @@ export default {
   },
   async mounted() {
     if (this.logged) {
-      console.log("entre");
       this.list();
     }
   },
