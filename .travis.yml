@@ -1,0 +1,44 @@
+sudo: false
+
+language: node_js
+node_js: "13.1.0"
+
+before_install:
+  - cd code
+  - cd front-end
+
+cache:
+  directories:
+    - node_modules
+    - code/front-end/node_modules
+    - $HOME/.cache/electron
+    - $HOME/.cache/electron-builder
+    - $HOME/.npm/_prebuilds
+
+env:
+  global:
+    - ELECTRON_CACHE=$HOME/.cache/electron
+    - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
+
+jobs:
+  include:
+    - stage: Install Windows?
+      script:
+        - npm i
+    - stage: Build
+      script:
+        - npm run build
+    - stage: Deploy Mac 
+      if: tag IS present
+      os: osx
+      osx_image: xcode10.1
+      script:
+        - npm run build
+      before_cache:
+        - rm -rf $HOME/.cache/electron-builder/wine
+    - stage: Deploy linux
+      if: tag IS present
+      os: linux
+      dist: trusty
+      script:
+        - npm run build
