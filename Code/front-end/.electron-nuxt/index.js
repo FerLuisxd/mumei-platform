@@ -2,7 +2,7 @@
 const path = require('path')
 const webpack = require('webpack')
 const electron = require('electron')
-
+require('dotenv').config()
 const { Pipeline, Logger } = require('@xpda-dev/core')
 const { ElectronLauncher } = require('@xpda-dev/electron-launcher')
 const { ElectronBuilder } = require('@xpda-dev/electron-builder')
@@ -17,10 +17,12 @@ const launcher = new ElectronLauncher({
   electronPath: electron,
   entryFile: path.join(DIST_DIR, 'main/index.js')
 })
+console.log( {config: path.join(__dirname, '../builder.config.js')})
 
 const builder = new ElectronBuilder({
   cliOptions: {
-    config: path.join(__dirname, '../builder.config.js')
+    config: path.join(__dirname, '../builder.config.js'),
+    publish:"always"
   }
 })
 

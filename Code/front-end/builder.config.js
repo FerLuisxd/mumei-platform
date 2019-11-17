@@ -46,9 +46,9 @@ const macOS = {
 
 module.exports = {
   asar: false,
-  productName: 'My browser',
-  appId: 'org.michalzarach.my-browser',
-  artifactName: 'my-browser-${version}.${ext}',
+  productName: 'Mumei Platform',
+  appId: 'org.mumei.platform',
+  artifactName: 'mumei-platform-${version}.${ext}',
   directories: {
     output: 'build'
   },

@@ -1,4 +1,4 @@
-sudo: false
+sudo: true
 
 language: node_js
 node_js: "13.1.0"
@@ -46,8 +46,3 @@ jobs:
     #   dist: trusty
     #   script:
     #     - npm run build
-deploy:
-  provider: releases
-  api_key: $GH_TOKEN
-  file: Code/front-end/release.zip
-  skip_cleanup: true

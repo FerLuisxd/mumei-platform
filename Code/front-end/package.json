@@ -18,8 +18,8 @@
     "node": ">=8.10.0"
   },
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/FerLuisxd/mumei-platform.git"
+    "type": "git",
+    "url": "https://github.com/FerLuisxd/mumei-platform"
   },
   "devDependencies": {
     "@mdi/font": "4.4.95",
@@ -31,11 +31,11 @@
     "@xpda-dev/electron-builder": "^0.1.1",
     "@xpda-dev/electron-launcher": "^0.1.1",
     "@xpda-dev/webpack-step": "^0.1.2",
-    "adm-zip": "^0.4.13",
     "ava": "2.4.0",
     "babel-plugin-webpack-alias-7": "0.1.1",
     "browser-env": "3.2.6",
     "cross-env": "6.0.3",
+    "dotenv": "^8.2.0",
     "electron": "^5.0.11",
     "electron-builder": "21.2.0",
     "electron-debug": "3.0.1",
