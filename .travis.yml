@@ -4,13 +4,12 @@ language: node_js
 node_js: "13.1.0"
 
 before_install:
-  - cd code
-  - cd front-end
+  - cd Code/front-end
 
 cache:
   directories:
     - node_modules
-    - code/front-end/node_modules
+    - Code/front-end/node_modules
     - $HOME/.cache/electron
     - $HOME/.cache/electron-builder
     - $HOME/.npm/_prebuilds
