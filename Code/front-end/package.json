@@ -11,7 +11,7 @@
     "postinstall": "electron-builder install-app-deps "
   },
   "keywords": [],
-  "author": "Luis Vilca",
+  "author": "Luis Vilca <ferluisxdd@gmail.com> (https://github.com/FerLuisxd/)",
   "license": "MIT",
   "homepage": "https://github.com/michalzaq12/electron-nuxt/blob/master/README.md",
   "engines": {
