@@ -24,7 +24,7 @@ export class UserChatService {
     public async getChatByUser(userID: any)//OrderBy TODO
     {
         let res = await this.userChatRepository.find({where: {user:userID}, relations: ["user"]})
-        // if (res.length <1){ throw 'This user doesnt have chats.';}
+        //if (res.length <1){ throw 'This user doesnt have chats.';}
         console.log(res.length);
         return res;
     }
@@ -83,7 +83,7 @@ export class UserChatService {
         );
     }
 
-    public async createUserChat(userid: number)
+    public async createUserChat(userid: number, newMessage)
     {
         let res;
         let err;
@@ -94,6 +94,7 @@ export class UserChatService {
             let user = await this.userRepository.findOne({id:userid});
             NewUserChat.user = user;
             NewUserChat.registerDate = today;
+            NewUserChat.message = newMessage;
             res = await this.userChatRepository.insert(NewUserChat);
 
         } catch (error) {

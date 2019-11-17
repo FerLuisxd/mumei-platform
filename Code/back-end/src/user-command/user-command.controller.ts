@@ -22,9 +22,14 @@ export class UserCommandController {
     public async getAllUserCommands(@Res() res, @Req() req){
         const userCommands = await this.userCommandService.getAllUserCommmand();
         console.log(req.payload);
-        
-        
         res.status(HttpStatus.OK).json(userCommands);
+    } 
+
+    @Get('shortcut/:short')
+    public async getUserCommandByShortcut(@Res() res, @Req() req, @Param('short') short) {
+        const userCommand = await this.userCommandService.getCommandByShort(short);
+        console.log(req.payload);
+        res.status(HttpStatus.OK).json(userCommand);
     } 
 
     @Get(':userid')

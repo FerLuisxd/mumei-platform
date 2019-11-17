@@ -9,12 +9,13 @@ import { CommandModule } from "../command/command.module";
 import { UserCommandModule } from '../user-command/user-command.module';
 import { BusinessModule } from "../business/business.module";
 import { SupportersModule } from "../supporters/supporters.module";
+import { UserChatModule } from "../user-chat/user-chat.module";
 
 
 @Module({
   controllers: [ AuthController ],
   providers:[LoginService,SignUpService,AuthHelper],
-  imports: [UserModule, CommandModule, BusinessModule, SupportersModule, UserCommandModule]
+  imports: [UserModule, CommandModule, BusinessModule, SupportersModule, UserCommandModule, UserChatModule]
 })
 
 export class AuthModule {}

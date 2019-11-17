@@ -32,6 +32,13 @@ export class UserCommandService {
         return res;
     }
 
+    public async getCommandByShort(short: any)
+    {
+        let res = await this.userCommandRepository.find({ where: { shortcut: short }, relations: ["user", "command"]})
+        // if (res.length <1){ throw 'This user doesnt have commands.';}
+        return res;
+    }
+
     public async editUserCommand(EditedUserCommand: UserCommandEntity, id)
     {
         let res;
