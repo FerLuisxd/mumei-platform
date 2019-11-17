@@ -17,6 +17,10 @@
   "engines": {
     "node": ">=8.10.0"
   },
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/FerLuisxd/mumei-platform.git"
+  },
   "devDependencies": {
     "@mdi/font": "4.4.95",
     "@nuxtjs/auth": "^4.8.4",
