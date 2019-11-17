@@ -6,6 +6,11 @@ node_js: "13.1.0"
 before_install:
   - cd Code/front-end
 
+os:
+  - linux
+  - osx
+  - windows
+
 cache:
   directories:
     - node_modules
@@ -21,23 +26,19 @@ env:
 
 jobs:
   include:
-    - stage: Install Windows?
-      script:
-        - npm i
     - stage: Build
       script:
         - npm run build
-    - stage: Deploy Mac 
-      if: tag IS present
-      os: osx
-      osx_image: xcode10.1
-      script:
-        - npm run build
-      before_cache:
-        - rm -rf $HOME/.cache/electron-builder/wine
-    - stage: Deploy linux
-      if: tag IS present
-      os: linux
-      dist: trusty
-      script:
-        - npm run build
+    # - stage: Deploy Mac 
+    #   os: osx
+    #   osx_image: xcode10.1
+    #   script:
+    #     - npm run build
+    #   before_cache:
+    #     - rm -rf $HOME/.cache/electron-builder/wine
+    # - stage: Deploy linux
+    #   if: tag IS present
+    #   os: linux
+    #   dist: trusty
+    #   script:
+    #     - npm run build
