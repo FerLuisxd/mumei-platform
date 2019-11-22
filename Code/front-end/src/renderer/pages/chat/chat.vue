@@ -145,7 +145,7 @@ export default {
 <style lang="sass">
   .e-nuxt-container 
     min-height: calc(100vh - 50px) 
-    background: linear-gradient(to right, #ece9e6, #ffffff) 
+    background: #414141
     font-family: Helvetica, sans-serif 
     padding: 30px
   .mt-2 

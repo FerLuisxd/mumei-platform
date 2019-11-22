@@ -1,5 +1,5 @@
 <template>
-  <div class="e-nuxt-container">
+  <div class="e-nuxt-container" >
     <h2>Bienvenidos</h2>
     <div v-if="logged">
       <v-layout align-start>
@@ -15,12 +15,12 @@
               label="Search"
               single-line
               hide-details
-              color="green"
+              color="#ec625f"
             ></v-text-field>
             <v-spacer></v-spacer>
             <v-dialog v-model="dialog" max-width="500px">
               <template v-slot:activator="{ on }">
-                <v-btn v-on="on" color="green" dark class="mb-2">New</v-btn>
+                <v-btn v-on="on" color="#525252" dark class="mb-2">New</v-btn>
               </template>
               <v-card>
                 <v-card-title>
@@ -49,7 +49,7 @@
                         <v-text-field v-model="keymap" label="keymap"></v-text-field>
                       </v-flex>
                       <v-flex v-if="editedIndex>-1" sm12 md12>
-                        <v-checkbox color="green" v-model="usable" :label="`Enabled`"></v-checkbox>
+                        <v-checkbox color="#ec625f" v-model="usable" :label="`Enabled`"></v-checkbox>
                       </v-flex>
                     </v-layout>
                   </v-container>
@@ -57,8 +57,8 @@
 
                 <v-card-actions>
                   <v-spacer></v-spacer>
-                  <v-btn color="green" text @click.native="close">Cancel</v-btn>
-                  <v-btn color="green" text @click.native="save">Save</v-btn>
+                  <v-btn color="#ec625f" text @click.native="close">Cancel</v-btn>
+                  <v-btn color="#ec625f" text @click.native="save">Save</v-btn>
                 </v-card-actions>
               </v-card>
             </v-dialog>
@@ -106,6 +106,7 @@ export default {
   },
   data() {
     return {
+      backgroundcolor: "#525252",
       externalContent: "",
       audio_stream: null,
       audio_context: null,
@@ -281,7 +282,7 @@ export default {
 <style lang="sass">
   .e-nuxt-container 
     min-height: calc(100vh - 50px) 
-    background: linear-gradient(to right, #ece9e6, #ffffff) 
+    background: #414141
     font-family: Helvetica, sans-serif 
     padding: 30px
   .mt-2 
