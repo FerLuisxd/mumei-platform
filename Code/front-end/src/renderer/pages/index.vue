@@ -63,7 +63,7 @@
               </v-card>
             </v-dialog>
           </v-toolbar>
-          <v-data-table :headers="headers" :items="commands " :search="search" class="elevation-1">
+          <v-data-table :headers="headers" :items="commands " :search="search" class="elevation-1" color="primary lighten-4">
             <template v-slot:item.usable="{ item }">
               <v-icon>{{ item.command.usable ? "mdi-checkbox-marked" : "mdi-checkbox-blank-outline" }}</v-icon>
             </template>

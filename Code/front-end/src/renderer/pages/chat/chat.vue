@@ -1,26 +1,25 @@
 <template>
   <div class="e-nuxt-container">
     <v-layout align-center justify-center>
-      <v-flex xs12 sm8 md4>
+      <v-flex xs15 sm18 md10>
         <v-card class="elevation-12" color="primary lighten-4">
           <v-toolbar dark color="#313131">
             <v-toolbar-title>Chat</v-toolbar-title>
           </v-toolbar>
           <v-card-text>
-            <v-list class="overflow-y-auto" style="max-height: 300px" color="primary lighten-4" 
-              ref="chat" id="logs">
+            <v-list class="chat overflow-y-auto" color="primary lighten-4" ref="chat" id="logs">
               <template v-for="(item, index) in logs">
                 <v-list-item v-if="item" :key="index">{{ item }}</v-list-item>
               </template>
             </v-list>
           </v-card-text>
           <v-card-actions>
+            <v-flex>
             <v-form @submit.prevent="submit">
-              <v-text-field v-model="msg" label="Message" single-line solo-inverted></v-text-field>
-              <v-btn fab dark small color="primary" type="submit">
-                <v-icon dark>mdi-send</v-icon>
-              </v-btn>
+            <v-text-field v-model="msg" label="Message" single-line solo-inverted>
+            </v-text-field>
             </v-form>
+       </v-flex>       
           </v-card-actions>
         </v-card>
       </v-flex>
@@ -148,6 +147,8 @@ export default {
     background: #414141
     font-family: Helvetica, sans-serif 
     padding: 30px
+  .chat
+      max-height: 500px
   .mt-2 
       margin-top: 14px 
   .mb-2 
