@@ -20,6 +20,8 @@
             <v-dialog v-model="dialog" max-width="500px">
               <template v-slot:activator="{ on }">
                 <v-btn v-on="on" color="#525252" dark class="mb-2">New</v-btn>
+                               <v-spacer></v-spacer>
+                <v-btn @click="clean" color="#525252" dark class="mb-2">Clear Output</v-btn>
               </template>
               <v-card>
                 <v-card-title>
@@ -317,6 +319,7 @@ export default {
     },
     clean() {
       this.id = "";
+      this.commandRes =[]
       this.name = "";
       this.command = "";
       this.usable = null;

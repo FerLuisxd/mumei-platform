@@ -4,7 +4,7 @@
       <v-flex xs12 sm8 md10>
         <v-card class="elevation-12" color="#525252">
           <v-toolbar dark color="#313131">
-            <v-toolbar-title>Chat</v-toolbar-title>
+            <v-toolbar-title>Chat Support </v-toolbar-title>
           </v-toolbar>
           <v-card-text>
             <v-list
@@ -52,11 +52,21 @@ export default {
   },
   created() {
     let me = this;
-    me.$axios.get(`/user-chat`).then(function(response) {
-      for (const prop in response.data) {
-        me.logs.push(response.data[prop].message);
-      }
-    });
+    // me.$axios.get(`/user-chat`).then(function(response) {
+    //   for (const prop in response.data) {
+    //     me.logs.push(response.data[prop].message);
+    //   }
+    // });
+    me.logs=[
+        "- Hola necesesito ayuda",
+        "> Hola soy Luis un gusto atenderle, generare un nuevo ticket #1321312",
+        "- No funciona este comando en mi cuenta",
+        "> Verique la sintaxis",
+        "- Oh el log me me muestra enonent",
+        "> Ese es error de sintaxis",
+
+    ]
+
   },
   methods: {
     async list() {
@@ -97,9 +107,9 @@ export default {
       });
     },
     submit() {
-      this.save(this.msg);
+    //   this.save(this.msg);
       console.log("Guarde");
-      this.logs.push(this.msg);
+      this.logs.push(`- ${this.msg}`);
       console.log("Pushee");
       // this.executeItem(this.msg)
       console.log(this.msg);
