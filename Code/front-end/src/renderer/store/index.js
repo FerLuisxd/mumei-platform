@@ -43,7 +43,7 @@ export const state = () => ({
       console.log('stdout:', stdout);
       console.error('stderr:', stderr);
     },
-    async execute ({state},command) {
+    async execute (context,command) {
       // console.log("command",command)
       // let response = await exec(command.command,{cwd:command.location},function(err,s,err){
       //   e? console.error("e", e):0
@@ -52,16 +52,28 @@ export const state = () => ({
       //   return {e,err,s}
       // })
       console.log('holaaa', command )
-      const { e,stdout, stderr } = await exec(command.command,{
-        cwd:command.location
-      });
-      let response = {
-        e,stdout,stderr,
-        name:command.name,
-        command:command.command
+      try {
+        const { e,stdout, stderr } = await exec(command.command,{
+          cwd:command.location
+        });
+        let response = {
+          e,stdout,stderr,
+          name:command.name,
+          command:command.command
+        }
+        console.log(response.stdout)
+        // state.commandRes =response
+        return response
+      } catch (error) {
+        let response = {
+          e:error,
+          stdout:'',
+          stderr:'',
+          name:command.name,
+          command:command.command
+        }
+        return response
       }
-      console.log(response.stdout)
-      state.commandRes =response
-      return response
+
     }
   }

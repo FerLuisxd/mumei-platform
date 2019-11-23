@@ -83,6 +83,29 @@
           </v-data-table>
         </v-flex>
       </v-layout>
+         <v-divider  inset vertical></v-divider>
+      <v-layout align start>
+    <v-card  class="mx-2" max-width="344" outlined   v-for="(item, i) in commandRes" :key="i">
+          <v-card-text>
+      <div>{{item.command}}</div>
+      <p class="display-1 text--primary">
+        {{item.name}}
+      </p>
+      <p>Error</p>
+      <div class="text--primary" style="font-family:monospace">
+       {{item.e}}
+      </div>
+            <p>Error CLI</p>
+      <div class="text--primary" style="font-family:monospace">
+       {{item.stderr}}
+      </div>
+            <p>Output</p>
+      <div class="text--primary" style="font-family:monospace">
+       {{item.stdout}}
+      </div>
+    </v-card-text>
+  </v-card>
+      </v-layout>
     </div>
     <div v-else>
       <label class="file-select">
@@ -187,6 +210,7 @@ export default {
       description: "",
       name: "",
       command: "",
+      commandRes:[],
       shortcut: "",
       keymap: "",
       location: "",
@@ -196,8 +220,24 @@ export default {
   },
   created() {},
   methods: {
-    executeItem(item) {
-      this.$store.dispatch("execute", item);
+    async executeItem(item) {
+       let index = this.commandRes.length
+       console.log(index)
+      this.commandRes.push({
+            
+          command: item.command,
+          name: item.name,
+          e:"Running...",
+          stderr:"Running...",
+          stdout:"Running...",
+      }
+      )
+
+      let res = await this.$store.dispatch("execute", item);
+      console.log(res)
+        this.commandRes.splice(index, 1);
+
+      this.commandRes.push(res)
     },
     handleFileChange(e) {
       // Whenever the file changes, emit the 'input' event with the file data.

@@ -20,6 +20,8 @@
             <v-dialog v-model="dialog" max-width="500px">
               <template v-slot:activator="{ on }">
                 <v-btn v-on="on" color="#525252" dark class="mb-2">New</v-btn>
+                <v-spacer></v-spacer>
+                <v-btn @click="clean" color="#525252" dark class="mb-2">Clear Output</v-btn>
               </template>
               <v-card>
                 <v-card-title>
@@ -83,24 +85,27 @@
           </v-data-table>
         </v-flex>
       </v-layout>
-      <v-spacer>      </v-spacer>
-      <v-layout>
-           <v-card class="mx-auto" max-width="344" outlined   v-for="(item, i) in commandRes" :key="i">
-    <v-list-item three-line>
-      <v-list-item-content>
-        <!-- <div class="overline mb-4">{{item.name}</div> -->
-        <v-list-item-title class="headline mb-1">{{item.command}}</v-list-item-title>
-        <v-list-item-subtitle>Error: {{item.e}}</v-list-item-subtitle>
-        <v-list-item-subtitle>Error CLI: {{item.stderr}}</v-list-item-subtitle>
-        <v-list-item-subtitle>Output: {{item.stdout}}</v-list-item-subtitle>
-      </v-list-item-content>
-
-      <v-list-item-avatar
-        tile
-        size="80"
-        color="grey"
-      ></v-list-item-avatar>
-    </v-list-item>
+   <v-divider  inset vertical></v-divider>
+      <v-layout align start>
+    <v-card  class="mx-2" max-width="344" outlined   v-for="(item, i) in commandRes" :key="i">
+          <v-card-text>
+      <div>{{item.command}}</div>
+      <p class="display-1 text--primary">
+        {{item.name}}
+      </p>
+      <p>Error</p>
+      <div class="text--primary" style="font-family:monospace">
+       {{item.e}}
+      </div>
+            <p>Error CLI</p>
+      <div class="text--primary" style="font-family:monospace">
+       {{item.stderr}}
+      </div>
+            <p>Output</p>
+      <div class="text--primary" style="font-family:monospace">
+       {{item.stdout}}
+      </div>
+    </v-card-text>
   </v-card>
       </v-layout>
 
@@ -167,20 +172,30 @@ export default {
       keymap: "",
       location: "",
       commandRes:[
-      {
-          e:"aaa",
-          stderr:"aaa",
-          stdout:"oof",
-      }],
+     ],
       usable: null,
       editedIndex: -1
     };
   },
   created() {},
   methods: {
-    executeItem(item) {
-      let res = this.$store.dispatch("execute", item);
+    async executeItem(item) {
+       let index = this.commandRes.length
+       console.log(index)
+      this.commandRes.push({
+            
+          command: item.command,
+          name: item.name,
+          e:"Running...",
+          stderr:"Running...",
+          stdout:"Running...",
+      }
+      )
+
+      let res = await this.$store.dispatch("execute", item);
       console.log(res)
+        this.commandRes.splice(index, 1);
+
       this.commandRes.push(res)
     },
     handleFileChange(e) {
@@ -266,6 +281,7 @@ export default {
       this.usable = null;
       this.description = "";
       (this.shortcut = ""), (this.keymap = ""), (this.location = "");
+      this.commandRes=[]
       //this.direccion = "";
       //this.telefono = "";
     },

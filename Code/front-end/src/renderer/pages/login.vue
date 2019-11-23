@@ -4,13 +4,8 @@
     <label class="mt-2.mb-2">Correo Electronico</label>
     <v-text-field color="white" placeholder="Ingrese correo electronico" v-model="email" :rules="emailRules"></v-text-field>
     <label class="mt-2.mb-2">Contrasenia</label>
-<<<<<<< Updated upstream
-    <v-text-field color="white" placeholder="Ingrese contrasenia" v-model="password" type="password"></v-text-field>
-    <v-btn class="btn-fin" @click="login()" :disabled="btnDisabled1" :loading="loginLoading">Login</v-btn>
-=======
     <v-text-field placeholder="Ingrese contrasenia" v-model="password" type="password"></v-text-field>
     <v-btn class="btn-fin" @click="login()" :disabled="btnDisabled1" :loading="loginLoading" color="#313131">Login</v-btn>
->>>>>>> Stashed changes
   </div>
 </template>
 
@@ -100,19 +95,11 @@ export default {
 </script>
 
 <style lang="sass">
-<<<<<<< Updated upstream
-  .e-nuxt-container 
-    min-height: calc(100vh - 50px) 
-    background: #525252
-    font-family: Helvetica, sans-serif 
-    padding: 30px
-=======
     .e-nuxt-container 
       min-height: calc(100vh - 50px) 
       background: #525252
       font-family: Helvetica, sans-serif 
       padding: 30px
->>>>>>> Stashed changes
   .mt-2 
       margin-top: 14px 
   .mb-2 
@@ -127,39 +114,23 @@ export default {
       width: 400px 
   .e-nuxt-system-info 
       padding: 20px 
-<<<<<<< Updated upstream
-      border-top: 1px solid #525252 
-      border-bottom: 1px solid #525252 
-=======
       border-top: 1px solid #397c6d 
       border-bottom: 1px solid #397c6d 
->>>>>>> Stashed changes
   .e-nuxt-links 
       padding: 100px 0 
       display: flex 
       justify-content: center 
   .e-nuxt-button 
-<<<<<<< Updated upstream
-      color: #525252 
-      padding: 5px 20px 
-      border: 1px solid #525252 
-=======
       color: #364758 
       padding: 5px 20px 
       border: 1px solid #397c6d 
->>>>>>> Stashed changes
       margin: 0 20px 
       border-radius: 15px 
       font-size: 1rem 
       &:hover 
           cursor: pointer 
           color: white 
-<<<<<<< Updated upstream
-          background-color: #525252 
-
-=======
           background-color: #397c6d 
->>>>>>> Stashed changes
-
+  
 
 </style>
