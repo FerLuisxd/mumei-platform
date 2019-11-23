@@ -11,7 +11,16 @@
         Admin
         </v-btn>-->
         <div v-if="logged">
+          <v-btn text to="/commands/commands">Commands</v-btn>
+        </div>
+        <div v-if="logged">
+          <v-btn text to="/commands/business">Business</v-btn>
+        </div>
+        <div v-if="logged">
           <v-btn text to="/chat/chat">Chat</v-btn>
+        </div>
+        <div v-if="logged">
+          <v-btn text to="/support/support">Support</v-btn>
         </div>
         <v-spacer />
 

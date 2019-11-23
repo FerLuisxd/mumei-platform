@@ -2,9 +2,9 @@
   <div class="e-nuxt-container">
     <h2>Bienvenidos</h2>
     <label class="mt-2.mb-2">Correo Electronico</label>
-    <v-text-field placeholder="Ingrese correo electronico" v-model="email" :rules="emailRules"></v-text-field>
+    <v-text-field color="white" placeholder="Ingrese correo electronico" v-model="email" :rules="emailRules"></v-text-field>
     <label class="mt-2.mb-2">Contrasenia</label>
-    <v-text-field placeholder="Ingrese contrasenia" v-model="password" type="password"></v-text-field>
+    <v-text-field color="white" placeholder="Ingrese contrasenia" v-model="password" type="password"></v-text-field>
     <v-btn class="btn-fin" @click="login()" :disabled="btnDisabled1" :loading="loginLoading">Login</v-btn>
   </div>
 </template>
