@@ -2,7 +2,12 @@ import * as electron from 'electron'
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);
 export const state = () => ({
-    count: 0
+    count: 0,
+    commandRes:{
+      e: '',
+      err: '',
+      out: ''
+    }
   })
   export const mutations = {
     increment(state, n) {
@@ -38,7 +43,7 @@ export const state = () => ({
       console.log('stdout:', stdout);
       console.error('stderr:', stderr);
     },
-    async execute (context,command) {
+    async execute ({state},command) {
       // console.log("command",command)
       // let response = await exec(command.command,{cwd:command.location},function(err,s,err){
       //   e? console.error("e", e):0
@@ -47,11 +52,16 @@ export const state = () => ({
       //   return {e,err,s}
       // })
       console.log('holaaa', command )
-      const { e,stdout, stderr } = await exec(command.command,{cwd:command.location});
+      const { e,stdout, stderr } = await exec(command.command,{
+        cwd:command.location
+      });
       let response = {
-        e,stdout,stderr
+        e,stdout,stderr,
+        name:command.name,
+        command:command.command
       }
       console.log(response.stdout)
+      state.commandRes =response
       return response
     }
   }

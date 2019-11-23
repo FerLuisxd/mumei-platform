@@ -47,6 +47,7 @@ export class CommandService {
 
         } catch (error) {
             console.log(error);
+            throw err
             err = error;            
         }
 

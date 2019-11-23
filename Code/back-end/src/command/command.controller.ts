@@ -9,6 +9,7 @@ import {
     Post,
     Delete,
     Req,
+    HttpException,
   } from '@nestjs/common';
   import { CommandService } from './command.service';
   import { CommandEntity } from "./command.entity";
@@ -35,9 +36,14 @@ export class CommandController {
     @Post()
     public async createCommand(@Res() res, @Body() newCommand : CommandEntity, @Req() req){
         
-        const result = await this.commandService.createCommand(newCommand);
-        const result2 = await this.userCommandService.createUserCommand(req.payload.id, newCommand);
-        res.status(HttpStatus.CREATED).json(result);
+        try {
+            const result = await this.commandService.createCommand(newCommand);
+            const result2 = await this.userCommandService.createUserCommand(req.payload.id, newCommand);
+            res.status(HttpStatus.CREATED).json(result);
+        } catch (error) {
+            return new HttpException(error,500)
+        }
+
     }
 
     @Put(':id')

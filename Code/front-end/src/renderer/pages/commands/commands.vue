@@ -83,6 +83,27 @@
           </v-data-table>
         </v-flex>
       </v-layout>
+      <v-spacer>      </v-spacer>
+      <v-layout>
+           <v-card class="mx-auto" max-width="344" outlined   v-for="(item, i) in commandRes" :key="i">
+    <v-list-item three-line>
+      <v-list-item-content>
+        <!-- <div class="overline mb-4">{{item.name}</div> -->
+        <v-list-item-title class="headline mb-1">{{item.command}}</v-list-item-title>
+        <v-list-item-subtitle>Error: {{item.e}}</v-list-item-subtitle>
+        <v-list-item-subtitle>Error CLI: {{item.stderr}}</v-list-item-subtitle>
+        <v-list-item-subtitle>Output: {{item.stdout}}</v-list-item-subtitle>
+      </v-list-item-content>
+
+      <v-list-item-avatar
+        tile
+        size="80"
+        color="grey"
+      ></v-list-item-avatar>
+    </v-list-item>
+  </v-card>
+      </v-layout>
+
     </div>
     <div v-else>
       <label class="file-select">
@@ -145,6 +166,12 @@ export default {
       shortcut: "",
       keymap: "",
       location: "",
+      commandRes:[
+      {
+          e:"aaa",
+          stderr:"aaa",
+          stdout:"oof",
+      }],
       usable: null,
       editedIndex: -1
     };
@@ -152,7 +179,9 @@ export default {
   created() {},
   methods: {
     executeItem(item) {
-      this.$store.dispatch("execute", item);
+      let res = this.$store.dispatch("execute", item);
+      console.log(res)
+      this.commandRes.push(res)
     },
     handleFileChange(e) {
       // Whenever the file changes, emit the 'input' event with the file data.
