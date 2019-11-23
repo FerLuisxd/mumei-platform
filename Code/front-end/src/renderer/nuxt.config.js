@@ -27,6 +27,7 @@ module.exports = {
         endpoints: {
           login: { url: '/auth/login', method: 'post', propertyName: 'token' },
           user: { url: '/user/afterLogin', method: 'get', propertyName: 'user' },
+          signup: { url: '/auth/signup', method: 'post', propertyName: 'token' },
           logout: false,
         },
         // tokenRequired: true,
