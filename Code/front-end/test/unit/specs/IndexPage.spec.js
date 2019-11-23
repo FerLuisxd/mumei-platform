@@ -1,25 +1,30 @@
 import test from 'ava'
 import { shallowMount } from '@vue/test-utils'
-import Index from '@/pages/basic.vue'
+import Login from '@/pages/login.vue'
 
-// // available wrapper methods/properties: https://vue-test-utils.vuejs.org/api/wrapper
-let wrapper
 
-test.beforeEach(() => {
-  // available mount options: https://vue-test-utils.vuejs.org/api/options.html
-  wrapper = shallowMount(Index, {
-    mocks: {
-      __resources: 'XXX'
-    }
-  })
+test('Should load page', t=>{
+  const wrapper = shallowMount(Login)
+  t.is(wrapper.isVueInstance(),true)
 })
 
-test('Should read external file from resources directory', t => {
-  const text = wrapper.find('#external-resource').text()
-  t.true(text.includes('EXTERNAL_FILE_CONTENT'))
+test('Should be able to manipulate data', t=>{
+  const wrapper = shallowMount(Login)
+  wrapper.setData({ email: 'New Data' })
+  t.is(wrapper.vm.$data.email,'New Data')
 })
 
-test('Should resolve __resources global variable in HTML', t => {
-  const imgHTML = wrapper.find('#absolute-path-with-resources-const')
-  t.false(imgHTML.attributes().src.includes('undefined'))
+
+import Register from '@/pages/register.vue'
+
+
+test('Should load page Register', t=>{
+  const wrapper = shallowMount(Register)
+  t.is(wrapper.isVueInstance(),true)
+})
+
+test('Should be able to manipulate data Register', t=>{
+  const wrapper = shallowMount(Register)
+  wrapper.setData({ email: 'New Data' })
+  t.is(wrapper.vm.$data.email,'New Data')
 })
