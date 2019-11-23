@@ -3,13 +3,13 @@ import { UserEntity } from "../user/user.entity";
 import { CommandEntity } from "../command/command.entity";
 
 @Entity('userchat')
-export class UserChatEntity {//a
+export class UserChatEntity {
     @PrimaryGeneratedColumn()
     id:number
 
     @ManyToOne(type=>UserEntity, user => user.userChat,{onDelete: 'CASCADE'})
-  //  @JoinTable()
-    user:UserEntity;  
+
+    user:UserEntity;
 
     @Column()
     message:string;    

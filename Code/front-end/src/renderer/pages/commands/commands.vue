@@ -1,6 +1,5 @@
 <template>
   <div class="e-nuxt-container">
-    <h2>Bienvenidos</h2>
     <div v-if="logged">
       <v-layout align-start>
         <v-flex>

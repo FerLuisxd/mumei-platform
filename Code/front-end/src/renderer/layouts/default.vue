@@ -1,48 +1,59 @@
 <template>
- 
-    <div>
+  <div>
     <v-app>
-    <v-app-bar app color="green">
-      <v-btn text to="/">Main Page</v-btn>
-      <!-- <v-btn text to="/" v-if="$auth.user && $auth.user.admin">
-        Admin
-      </v-btn> -->
-<div v-if="logged">
-  <v-btn text to="/chat/chat">Chat</v-btn>
-</div>
-      <v-spacer />
-      
-      <div v-if="logged">
-        <v-btn text to="/user">{{ username }}</v-btn>
-        <v-btn text @click="$auth.logout()">Logout</v-btn>
-      </div>
-      <div v-else>
-        <v-btn text to="/login">Login</v-btn>
-        <v-btn text to="/register">Register</v-btn>
-      </div>
-    </v-app-bar>
-    <v-content>
-      <nuxt />
-    </v-content>
+      <v-app-bar app color="#ec625f">
+        <router-link to="/">
+          <img src="../assets/mumei-logo.png" height="70px" width="70px">
+        </router-link>
 
-  
-  </v-app>
+        <v-btn text to="/">Main Page</v-btn>
+        <!-- <v-btn text to="/" v-if="$auth.user && $auth.user.admin">
+        Admin
+        </v-btn>-->
+        <div v-if="logged">
+          <v-btn text to="/commands/commands">Commands</v-btn>
+        </div>
+        <div v-if="logged">
+          <v-btn text to="/commands/business">Business</v-btn>
+        </div>
+        <div v-if="logged">
+          <v-btn text to="/chat/chat">Chat</v-btn>
+        </div>
+        <div v-if="logged">
+          <v-btn text to="/support/support">Support</v-btn>
+        </div>
+        <v-spacer />
+
+        <div v-if="logged">
+          <v-btn text to="/user">{{ username }}</v-btn>
+          <v-btn text @click="$auth.logout()">Logout</v-btn>
+        </div>
+        <div v-else>
+          <v-spacer />
+          <v-btn text to="/login">Login</v-btn>
+          <v-btn text to="/register">Register</v-btn>
+        </div>
+      </v-app-bar>
+      <v-content>
+        <nuxt />
+      </v-content>
+    </v-app>
   </div>
 </template>
 
 <script>
-import appHeader from '@/components/header'
+import appHeader from "@/components/header";
 export default {
   components: { appHeader },
-  computed:{
-    username(){
-      return this.$auth.user.username
+  computed: {
+    username() {
+      return this.$auth.user.username;
     },
-    logged(){
-      return this.$auth.loggedIn
+    logged() {
+      return this.$auth.loggedIn;
     }
   }
-}
+};
 </script>
 
 <style lang='sass'>

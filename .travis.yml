@@ -1,0 +1,48 @@
+sudo: true
+
+language: node_js
+node_js: "13.1.0"
+
+before_install:
+  - cd Code/front-end
+
+# os:
+#   - linux
+#   - osx
+#   - windows
+
+cache:
+  directories:
+    - node_modules
+    - Code/front-end/node_modules
+    - $HOME/.cache/electron
+    - $HOME/.cache/electron-builder
+    - $HOME/.npm/_prebuilds
+    - $HOME/.cache/node-sass
+
+env:
+  global:
+    - ELECTRON_CACHE=$HOME/.cache/electron
+    - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
+    - SASS_CACHE=$HOME/.cache/node-sass
+
+jobs:
+  include:
+    - stage: Build
+      os: windows
+      script:
+        - npm run build
+        - node zipper.js
+    # - stage: Deploy Mac 
+    #   os: osx
+    #   osx_image: xcode10.1
+    #   script:
+    #     - npm run build
+    #   before_cache:
+    #     - rm -rf $HOME/.cache/electron-builder/wine
+    # - stage: Deploy linux
+    #   if: tag IS present
+    #   os: linux
+    #   dist: trusty
+    #   script:
+    #     - npm run build

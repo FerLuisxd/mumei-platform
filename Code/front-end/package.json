@@ -11,16 +11,22 @@
     "postinstall": "electron-builder install-app-deps "
   },
   "keywords": [],
-  "author": "Luis Vilca",
+  "author": "Luis Vilca <ferluisxdd@gmail.com> (https://github.com/FerLuisxd/)",
   "license": "MIT",
   "homepage": "https://github.com/michalzaq12/electron-nuxt/blob/master/README.md",
   "engines": {
     "node": ">=8.10.0"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/FerLuisxd/mumei-platform"
+  },
   "devDependencies": {
-    "@vue/test-utils": "1.0.0-beta.29",
     "@mdi/font": "4.4.95",
+    "@nuxtjs/auth": "^4.8.4",
+    "@nuxtjs/axios": "^5.8.0",
     "@nuxtjs/vuetify": "1.6.1",
+    "@vue/test-utils": "1.0.0-beta.29",
     "@xpda-dev/core": "^0.1.5",
     "@xpda-dev/electron-builder": "^0.1.1",
     "@xpda-dev/electron-launcher": "^0.1.1",
@@ -29,6 +35,7 @@
     "babel-plugin-webpack-alias-7": "0.1.1",
     "browser-env": "3.2.6",
     "cross-env": "6.0.3",
+    "dotenv": "^8.2.0",
     "electron": "^5.0.11",
     "electron-builder": "21.2.0",
     "electron-debug": "3.0.1",
@@ -44,8 +51,5 @@
     "webpack": "4.41.0",
     "webpack-node-externals": "1.7.2"
   },
-  "dependencies": {
-    "@nuxtjs/auth": "^4.8.4",
-    "@nuxtjs/axios": "^5.8.0"
-  }
+  "dependencies": {}
 }

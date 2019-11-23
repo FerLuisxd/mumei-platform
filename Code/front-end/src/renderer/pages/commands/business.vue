@@ -1,11 +1,10 @@
 <template>
   <div class="e-nuxt-container">
-    <h2>Bienvenidos</h2>
     <div v-if="logged">
       <v-layout align-start>
         <v-flex>
           <v-toolbar flat color="#414141">
-            <v-toolbar-title>Commands</v-toolbar-title>
+            <v-toolbar-title>Business Commands</v-toolbar-title>
             <v-divider class="mx-2" inset vertical></v-divider>
             <v-spacer></v-spacer>
             <v-text-field
@@ -127,9 +126,54 @@ export default {
           return pattern.test(value) || "Invalid e-mail.";
         }
       ],
-      commands: [],
+      commands: [{
+	"id": 1,
+	"registerDate": "2019-11-10T04:59:59.000Z",
+	"deletedDate": null,
+	"user": {
+		"id": 1,
+		"username": "ferluis",
+		"email": "ferluisxd@gmail.com",
+		"password": "0000",
+		"role": "1"
+	},
+	"category": "Development",
+	"command": {
+		"id": 1,
+		"shortcut": "dsad",
+		"location": "dasdas",
+		"keymap": "dsad",
+		"command": "git pull",
+		"description": "git pullea",
+		"name": "pull",
+		"usable": true
+	}
+}, {
+	"id": 2,
+	"registerDate": "2019-11-16T04:36:13.000Z",
+	"deletedDate": null,
+	"user": {
+		"id": 1,
+		"username": "ferluis",
+		"email": "ferluisxd@gmail.com",
+		"password": "0000",
+		"role": "1"
+	},
+	"category": "Administration",
+	"command": {
+		"id": 7,
+		"shortcut": "d",
+		"location": "C:\\Users\\FerLuis\\AppData\\Local\\Google\\Chrome\\Application",
+		"keymap": "ALT + 5",
+		"command": "chrome --incognito",
+		"description": "this shows directory files",
+		"name": "showDirectory",
+		"usable": true
+	}
+}],
       dialog: false,
       headers: [
+        { text: "Name", value: "category", sortable: true },
         { text: "Name", value: "command.name", sortable: false },
         { text: "Command", value: "command.command", sortable: false },
         { text: "Shortcut", value: "command.shortcut", sortable: false }, ///CAMPOS
@@ -243,10 +287,10 @@ export default {
     },
     list() {
       //TODO
-      let me = this;
-      me.$axios.get(`/user-command/${me.userID}`).then(function(response) {
-        me.commands = response.data;
-      });
+    //   let me = this;
+    //   me.$axios.get(`/user-command/${me.userID}`).then(function(response) {
+    //     me.commands = response.data;
+    //   });
     },
     openURL(url) {
       remote.shell.openExternal(url);

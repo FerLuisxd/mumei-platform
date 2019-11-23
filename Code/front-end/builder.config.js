@@ -4,7 +4,8 @@ const windowsOS = {
   win: {
     icon: ICONS_DIR + 'win-icon.ico',
     publisherName: 'michal',
-    target: 'nsis'
+    target: 'nsis',
+    publish: ['github']
   },
 
   nsis: {
@@ -15,7 +16,8 @@ const windowsOS = {
 const linuxOS = {
   linux: {
     icon: ICONS_DIR,
-    target: 'deb'
+    target: 'deb',
+    publish: ['github']
   }
 }
 
@@ -38,14 +40,15 @@ const macOS = {
         type: 'file'
       }
     ]
-  }
+  },
+  publish: ['github']
 }
 
 module.exports = {
   asar: false,
-  productName: 'My browser',
-  appId: 'org.michalzarach.my-browser',
-  artifactName: 'my-browser-${version}.${ext}',
+  productName: 'Mumei Platform',
+  appId: 'org.mumei.platform',
+  artifactName: 'mumei-platform-${version}.${ext}',
   directories: {
     output: 'build'
   },

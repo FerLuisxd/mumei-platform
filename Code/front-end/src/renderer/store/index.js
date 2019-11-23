@@ -46,11 +46,12 @@ export const state = () => ({
       //   console.log("stdout",s)
       //   return {e,err,s}
       // })
+      console.log('holaaa', command )
       const { e,stdout, stderr } = await exec(command.command,{cwd:command.location});
       let response = {
         e,stdout,stderr
       }
-      console.log(response)
+      console.log(response.stdout)
       return response
     }
   }
