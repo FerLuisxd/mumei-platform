@@ -2,22 +2,28 @@
   <div class="e-nuxt-container">
     <v-layout align-center justify-center>
       <v-flex xs12 sm8 md4>
-        <v-card class="elevation-12" color="primary lighten-4">
+        <v-card class="elevation-12" color="#525252">
           <v-toolbar dark color="#313131">
             <v-toolbar-title>Chat</v-toolbar-title>
           </v-toolbar>
           <v-card-text>
-            <v-list class="overflow-y-auto" style="max-height: 300px" color="primary lighten-4" 
-              ref="chat" id="logs">
+            <v-list
+              class="overflow-y-auto"
+              style="max-height: 300px"
+              color="#525252"
+              ref="chat"
+              id="logs"
+            >
               <template v-for="(item, index) in logs">
                 <v-list-item v-if="item" :key="index">{{ item }}</v-list-item>
               </template>
             </v-list>
           </v-card-text>
+
           <v-card-actions>
             <v-form @submit.prevent="submit">
               <v-text-field v-model="msg" label="Message" single-line solo-inverted></v-text-field>
-              <v-btn fab dark small color="primary" type="submit">
+              <v-btn fab dark small color="#313131" type="submit">
                 <v-icon dark>mdi-send</v-icon>
               </v-btn>
             </v-form>
@@ -41,78 +47,69 @@ export default {
     return {
       logs: [],
       msg: null,
-      commands: [],
+      commands: []
     };
   },
   created() {
     let me = this;
     me.$axios.get(`/user-chat`).then(function(response) {
-        for (const prop in response.data) {
-          me.logs.push(response.data[prop].message)
-        }
-      });
+      for (const prop in response.data) {
+        me.logs.push(response.data[prop].message);
+      }
+    });
   },
   methods: {
     async list() {
       //TODO
-        //TODO
+      //TODO
       let me = this;
       me.$axios.get(`/user-command/${me.userID}`).then(function(response) {
-      
         for (let i = 0; i < response.data.length; i++) {
           const element = response.data[i];
-          me.commands.push(element.command)
-          
+          me.commands.push(element.command);
         }
-        console.log("me",me.commands )
+        console.log("me", me.commands);
       });
-
     },
-    executeItem(item){
-      
-      this.$store.dispatch('execute',item)
+    executeItem(item) {
+      this.$store.dispatch("execute", item);
     },
     save(m) {
       let me = this;
-      console.log('hi', me.commands)
-          for (let i = 0; i < me.commands.length; i++) {
-          
+      console.log("hi", me.commands);
+      for (let i = 0; i < me.commands.length; i++) {
         const element = me.commands[i];
-        
-        if(me.commands[i].name==m)
-        {
-          console.log('command ', me.commands[i]);
-        this.$store.dispatch('execute',me.commands[i]); 
-        break
-        }
-        else if(me.commands[i].shortcut==m)
-        { 
-                    console.log('command short ', me.commands[i]);
 
-          this.$store.dispatch('execute',me.commands[i]);
-          break 
-        }     
+        if (me.commands[i].name == m) {
+          console.log("command ", me.commands[i]);
+          this.$store.dispatch("execute", me.commands[i]);
+          break;
+        } else if (me.commands[i].shortcut == m) {
+          console.log("command short ", me.commands[i]);
+
+          this.$store.dispatch("execute", me.commands[i]);
+          break;
+        }
       }
-        me.$axios
-          .post(`/user-chat`, {
-            message: m,
-            registerDate: "1-1-1111"
-          })
+      me.$axios.post(`/user-chat`, {
+        message: m,
+        registerDate: "1-1-1111"
+      });
     },
     submit() {
-      this.save(this.msg)
-      console.log("Guarde")
+      this.save(this.msg);
+      console.log("Guarde");
       this.logs.push(this.msg);
-      console.log("Pushee")
+      console.log("Pushee");
       // this.executeItem(this.msg)
-      console.log(this.msg)
+      console.log(this.msg);
       // console.log("Ejecute")
       this.msg = "";
     }
   },
 
   async mounted() {
-    await this.list()
+    await this.list();
   },
   watch: {
     logs() {

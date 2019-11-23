@@ -40,14 +40,13 @@ module.exports = {
   },
           vuetify: {
             theme: {
+              dark: true,
               themes: {
-                light: {
-                  primary: '#1867c0',
+                primary: '#b71c1c',
                   secondary: '#b0bec5',
-                  accent: '#8c9eff',
+                accent: '#b71c1c',
                   error: '#b71c1c',
                 },
               },
             }
-          }
 };

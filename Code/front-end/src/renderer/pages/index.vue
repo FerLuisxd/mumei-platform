@@ -1,10 +1,10 @@
 <template>
-  <div class="e-nuxt-container" >
+  <div class="e-nuxt-container">
     <h2>Bienvenidos</h2>
     <div v-if="logged">
       <v-layout align-start>
         <v-flex>
-          <v-toolbar flat color="white">
+          <v-toolbar flat color="#414141">
             <v-toolbar-title>Commands</v-toolbar-title>
             <v-divider class="mx-2" inset vertical></v-divider>
             <v-spacer></v-spacer>
@@ -42,7 +42,7 @@
                         <v-text-field v-model="shortcut" label="shortcut"></v-text-field>
                       </v-flex>
                       <v-flex xs12 sm12 md12>
-                       <input type="file" webkitdirectory    @change="handleFileChange"/>
+                        <input type="file" webkitdirectory @change="handleFileChange" />
                         <v-text-field v-model="location" label="location"></v-text-field>
                       </v-flex>
                       <v-flex xs12 sm12 md12>
@@ -57,13 +57,19 @@
 
                 <v-card-actions>
                   <v-spacer></v-spacer>
-                  <v-btn color="#ec625f" text @click.native="close">Cancel</v-btn>
-                  <v-btn color="#ec625f" text @click.native="save">Save</v-btn>
+                  <v-btn color="white" text @click.native="close">Cancel</v-btn>
+                  <v-btn color="white" text @click.native="save">Save</v-btn>
                 </v-card-actions>
               </v-card>
             </v-dialog>
           </v-toolbar>
-          <v-data-table :headers="headers" :items="commands " :search="search" class="elevation-1">
+          <v-data-table
+            :headers="headers"
+            :items="commands "
+            :search="search"
+            class="elevation-1"
+            color="primary lighten-4"
+          >
             <template v-slot:item.usable="{ item }">
               <v-icon>{{ item.command.usable ? "mdi-checkbox-marked" : "mdi-checkbox-blank-outline" }}</v-icon>
             </template>
@@ -80,17 +86,16 @@
       </v-layout>
     </div>
     <div v-else>
-
-       <label class="file-select">
-    <!-- We can't use a normal button element here, as it would become the target of the label. -->
-    <div class="select-button">
-      <!-- Display the filename if a file has been selected. -->
-      <span v-if="value">Selected File: {{value.name}}</span>
-      <span v-else>Select File</span>
-    </div>
-    <!-- Now, the file input that we hide. -->
-    <!-- <input type="file" webkitdirectory    @change="handleFileChange"/> -->
-  </label>
+      <label class="file-select">
+        <!-- We can't use a normal button element here, as it would become the target of the label. -->
+        <div class="select-button">
+          <!-- Display the filename if a file has been selected. -->
+          <span v-if="value">Selected File: {{value.name}}</span>
+          <span v-else>Select File</span>
+        </div>
+        <!-- Now, the file input that we hide. -->
+        <!-- <input type="file" webkitdirectory    @change="handleFileChange"/> -->
+      </label>
     </div>
   </div>
 </template>
@@ -147,16 +152,16 @@ export default {
   },
   created() {},
   methods: {
-    executeItem(item){
-      this.$store.dispatch('execute',item)
+    executeItem(item) {
+      this.$store.dispatch("execute", item);
     },
     handleFileChange(e) {
       // Whenever the file changes, emit the 'input' event with the file data.
       try {
         // console.log(e.target.files[0].path)
-        this.location = e.target.files.length>0? e.target.files[0].path : ""
+        this.location = e.target.files.length > 0 ? e.target.files[0].path : "";
       } catch (e) {
-        console.error(e )
+        console.error(e);
       }
 
       // this.$emit('input', e.target.files[0])
@@ -282,7 +287,7 @@ export default {
 <style lang="sass">
   .e-nuxt-container 
     min-height: calc(100vh - 50px) 
-    background: #414141
+    background: #525252
     font-family: Helvetica, sans-serif 
     padding: 30px
   .mt-2 
