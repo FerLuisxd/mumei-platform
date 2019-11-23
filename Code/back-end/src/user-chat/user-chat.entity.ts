@@ -9,7 +9,7 @@ export class UserChatEntity {//a
 
     @ManyToOne(type=>UserEntity, user => user.userChat,{onDelete: 'CASCADE'})
   //  @JoinTable()
-    user:UserEntity;
+    user:UserEntity;  
 
     @Column()
     message:string;    
