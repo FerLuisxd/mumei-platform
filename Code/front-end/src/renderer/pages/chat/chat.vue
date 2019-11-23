@@ -21,12 +21,12 @@
           </v-card-text>
 
           <v-card-actions>
+            <v-flex>
             <v-form @submit.prevent="submit">
-              <v-text-field v-model="msg" label="Message" single-line solo-inverted></v-text-field>
-              <v-btn fab dark small color="#313131" type="submit">
-                <v-icon dark>mdi-send</v-icon>
-              </v-btn>
+            <v-text-field v-model="msg" label="Message" single-line solo-inverted>
+            </v-text-field>
             </v-form>
+       </v-flex>       
           </v-card-actions>
         </v-card>
       </v-flex>
@@ -145,6 +145,8 @@ export default {
     background: #414141
     font-family: Helvetica, sans-serif 
     padding: 30px
+  .chat
+      max-height: 500px
   .mt-2 
       margin-top: 14px 
   .mb-2 
